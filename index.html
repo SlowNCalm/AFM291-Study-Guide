@@ -1,0 +1,1742 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AFM 291 — Study Companion</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,500&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500&display=swap');
+
+  :root{
+    --ink:#161B22;
+    --paper:#F7F8FA;
+    --panel:#FFFFFF;
+    --line:#E1E4EA;
+    --ifrs:#2E5D8A;      /* blue: IFRS */
+    --aspe:#B8862E;      /* amber: ASPE */
+    --judge:#A83B3B;     /* red: Judgement & Estimates */
+    --muted:#666E7A;
+    --shadow:0 1px 2px rgba(22,27,34,0.06), 0 8px 24px rgba(22,27,34,0.06);
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{background:var(--paper); color:var(--ink); font-family:'Inter',system-ui,sans-serif; -webkit-font-smoothing:antialiased;}
+  h1,h2,h3,h4{font-family:'Fraunces',serif; font-weight:700; letter-spacing:-0.01em; margin:0 0 .4em 0;}
+  a{color:inherit;}
+  ::selection{background:#2E5D8A33;}
+
+  .app{display:flex; min-height:100vh;}
+  .sidebar{width:275px; flex-shrink:0; background:var(--ink); color:#E7E9EE; position:sticky; top:0; height:100vh; overflow-y:auto; padding:22px 16px 40px;}
+  .brand{font-family:'Fraunces',serif; font-size:1.15rem; font-weight:700; color:#fff; padding:0 8px 4px; line-height:1.2;}
+  .brand small{display:block; font-family:'JetBrains Mono',monospace; font-size:.66rem; letter-spacing:.08em; color:#B8862E; text-transform:uppercase; margin-top:6px;}
+  .nav-group{margin-top:22px;}
+  .nav-label{font-family:'JetBrains Mono',monospace; font-size:.66rem; letter-spacing:.12em; text-transform:uppercase; color:#8890A0; padding:0 8px; margin-bottom:6px;}
+  .nav-btn{display:flex; align-items:center; gap:8px; width:100%; text-align:left; background:none; border:none; color:#D2D5DE; font-family:'Inter',sans-serif; font-size:.85rem; font-weight:500; padding:8px 8px; border-radius:6px; cursor:pointer; margin-bottom:2px; transition:background .15s, color .15s;}
+  .nav-btn .dot{width:7px; height:7px; border-radius:50%; flex-shrink:0; background:#4C5566;}
+  .nav-btn:hover{background:#20262F; color:#fff;}
+  .nav-btn.active{background:#25324A; color:#fff; font-weight:600;}
+  .nav-btn.active .dot{background:var(--aspe);}
+
+  .main{flex:1; min-width:0;}
+  .topbar{position:sticky; top:0; z-index:5; background:rgba(247,248,250,0.92); backdrop-filter:blur(8px); border-bottom:1px solid var(--line); padding:14px 40px; display:flex; align-items:center; gap:16px; justify-content:space-between;}
+  .search{flex:1; max-width:420px; position:relative;}
+  .search input{width:100%; padding:9px 14px 9px 34px; border-radius:8px; border:1px solid var(--line); background:var(--panel); font-family:'Inter',sans-serif; font-size:.85rem; color:var(--ink);}
+  .search input:focus{outline:2px solid var(--aspe); outline-offset:1px;}
+  .search::before{content:"⌕"; position:absolute; left:12px; top:50%; transform:translateY(-50%); color:var(--muted); font-size:1rem;}
+  .pillar-key{display:flex; gap:14px; font-family:'JetBrains Mono',monospace; font-size:.66rem; color:var(--muted);}
+  .pillar-key span{display:flex; align-items:center; gap:5px;}
+  .pillar-key i{width:8px; height:8px; border-radius:50%; display:inline-block;}
+
+  .content{padding:40px 40px 100px; max-width:940px;}
+  .page{display:none;}
+  .page.active{display:block; animation:fade .25s ease;}
+  @keyframes fade{from{opacity:0; transform:translateY(4px);} to{opacity:1; transform:none;}}
+
+  .eyebrow{font-family:'JetBrains Mono',monospace; font-size:.7rem; letter-spacing:.12em; text-transform:uppercase; color:var(--muted); margin-bottom:8px;}
+  .page h1{font-size:2rem; margin-bottom:6px;}
+  .page .sub{color:var(--muted); font-size:1rem; margin-bottom:28px; max-width:660px; line-height:1.5;}
+
+  .card{background:var(--panel); border:1px solid var(--line); border-radius:12px; padding:22px 24px; margin-bottom:18px; box-shadow:var(--shadow);}
+  .card h3{font-size:1.02rem; margin-bottom:10px;}
+  .card h3 .tag{font-family:'JetBrains Mono',monospace; font-size:.6rem; letter-spacing:.06em; text-transform:uppercase; padding:2px 7px; border-radius:20px; margin-left:8px; vertical-align:middle; font-weight:600;}
+  .tag.ifrs{background:#2E5D8A1a; color:var(--ifrs);}
+  .tag.aspe{background:#B8862E1a; color:var(--aspe);}
+  .tag.judge{background:#A83B3B1a; color:var(--judge);}
+
+  ul.notes{margin:0; padding-left:1.15em;}
+  ul.notes li{margin-bottom:6px; line-height:1.5; font-size:.92rem;}
+  ul.notes ul{margin-top:4px;}
+  p{line-height:1.6; font-size:.94rem;}
+
+  .grid2{display:grid; grid-template-columns:1fr 1fr; gap:16px;}
+  .grid3{display:grid; grid-template-columns:1fr 1fr 1fr; gap:14px;}
+  @media(max-width:800px){.grid2,.grid3{grid-template-columns:1fr;}}
+
+  .stat{background:var(--ink); color:#E7E9EE; border-radius:10px; padding:16px 18px;}
+  .stat .num{font-family:'Fraunces',serif; font-size:1.6rem; font-weight:700; color:var(--aspe);}
+  .stat .lbl{font-size:.76rem; color:#AEB4C0; margin-top:2px;}
+
+  table{width:100%; border-collapse:collapse; font-size:.85rem; margin:10px 0;}
+  th{text-align:left; font-family:'JetBrains Mono',monospace; font-size:.63rem; text-transform:uppercase; letter-spacing:.06em; color:var(--muted); padding:8px 10px; border-bottom:2px solid var(--line);}
+  td{padding:9px 10px; border-bottom:1px solid var(--line); vertical-align:top; line-height:1.4;}
+  tr:last-child td{border-bottom:none;}
+  td.num, th.num{text-align:right; font-family:'JetBrains Mono',monospace;}
+
+  blockquote{border-left:3px solid var(--aspe); margin:14px 0; padding:6px 0 6px 16px; font-style:italic; color:#3a424e; font-size:.9rem; line-height:1.55;}
+  .callout{border-radius:10px; padding:14px 16px; font-size:.87rem; line-height:1.5; margin:14px 0;}
+  .callout.def{background:#2E5D8A0c; border:1px solid #2E5D8A33;}
+  .callout.case{background:#B8862E0c; border:1px solid #B8862E33;}
+  .callout.exam{background:#A83B3B0c; border:1px solid #A83B3B33;}
+  .callout b{display:block; font-family:'JetBrains Mono',monospace; font-size:.63rem; text-transform:uppercase; letter-spacing:.08em; margin-bottom:5px;}
+
+  .divider{height:1px; background:var(--line); margin:28px 0;}
+  .subhead{font-family:'Fraunces',serif; font-size:1.3rem; margin:30px 0 14px; padding-top:6px;}
+  .subhead:first-child{margin-top:0;}
+
+  .term-grid{display:grid; grid-template-columns:1fr 1fr; gap:0;}
+  .term{padding:10px 0; border-bottom:1px solid var(--line);}
+  .term dt{font-weight:600; font-size:.85rem; margin-bottom:2px;}
+  .term dd{margin:0; font-size:.82rem; color:#454e5c; line-height:1.4;}
+  @media(max-width:800px){.term-grid{grid-template-columns:1fr;}}
+
+  /* Diagrams */
+  .diagram{background:var(--panel); border:1px solid var(--line); border-radius:12px; padding:26px 24px 22px; margin:16px 0; box-shadow:var(--shadow);}
+  .diagram-title{font-family:'JetBrains Mono',monospace; font-size:.65rem; letter-spacing:.1em; text-transform:uppercase; color:var(--muted); margin-bottom:16px; text-align:center;}
+  .diagram svg{display:block; margin:0 auto; max-width:100%; height:auto;}
+  .diagram-caption{font-size:.78rem; color:var(--muted); text-align:center; margin-top:10px; line-height:1.5;}
+
+  .step-flow{display:flex; flex-wrap:wrap; justify-content:center; align-items:center; gap:6px;}
+  .step-node{background:var(--ink); color:#fff; border-radius:10px; padding:12px 14px; font-size:.78rem; font-weight:600; font-family:'Inter',sans-serif; text-align:center; width:150px;}
+  .step-node .n{display:block; font-family:'JetBrains Mono',monospace; font-size:.62rem; color:var(--aspe); margin-bottom:3px;}
+  .step-arrow{color:var(--aspe); font-size:1.1rem; font-weight:700;}
+
+  .psp-flow{display:flex; flex-direction:column; gap:0;}
+  .psp-step{display:flex; gap:14px; align-items:flex-start; padding:14px 0; border-bottom:1px dashed var(--line);}
+  .psp-step:last-child{border-bottom:none;}
+  .psp-num{flex-shrink:0; width:34px; height:34px; border-radius:50%; background:var(--ink); color:#fff; display:flex; align-items:center; justify-content:center; font-family:'Fraunces',serif; font-weight:700; font-size:.95rem;}
+  .psp-body b{display:block; font-size:.92rem; margin-bottom:3px;}
+  .psp-body span{font-size:.82rem; color:var(--muted);}
+
+  .score-bar{display:flex; justify-content:space-between; align-items:center; background:var(--panel); border:1px solid var(--line); border-radius:10px; padding:12px 18px; margin:16px 0; font-family:'JetBrains Mono',monospace; font-size:.78rem;}
+
+  .saq-block{background:var(--panel); border:1px solid var(--line); border-radius:10px; padding:18px 20px; margin-bottom:16px;}
+  .saq-q{font-weight:600; font-size:.92rem; margin-bottom:4px;}
+  .saq-pts{font-family:'JetBrains Mono',monospace; font-size:.65rem; color:var(--muted); text-transform:uppercase; margin-bottom:10px;}
+  .saq-input{width:100%; min-height:90px; border:1px solid var(--line); border-radius:8px; padding:10px 12px; font-family:'Inter',sans-serif; font-size:.85rem; color:var(--ink); resize:vertical; background:var(--paper);}
+  .saq-input:focus{outline:2px solid var(--aspe); outline-offset:1px;}
+  .reveal-btn{margin-top:10px; background:none; border:1px solid var(--ink); color:var(--ink); font-family:'JetBrains Mono',monospace; font-size:.66rem; text-transform:uppercase; letter-spacing:.06em; padding:7px 14px; border-radius:6px; cursor:pointer;}
+  .reveal-btn:hover{background:var(--ink); color:#fff;}
+  .model-answer{display:none; margin-top:12px; padding:12px 14px; background:#2E5D8A0c; border:1px solid #2E5D8A33; border-radius:8px; font-size:.82rem; line-height:1.55;}
+  .model-answer.show{display:block;}
+  .model-answer b{display:block; font-family:'JetBrains Mono',monospace; font-size:.6rem; text-transform:uppercase; letter-spacing:.08em; color:var(--ifrs); margin-bottom:6px;}
+  .case-scenario{background:#B8862E0c; border:1px solid #B8862E33; border-radius:10px; padding:18px 20px; margin-bottom:18px; font-size:.87rem; line-height:1.6;}
+  .case-scenario b{font-family:'JetBrains Mono',monospace; font-size:.63rem; text-transform:uppercase; letter-spacing:.08em; color:var(--aspe); display:block; margin-bottom:8px;}
+  .section-band{display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px; background:#161B220d; border:1px solid var(--line); border-radius:10px; padding:12px 18px; margin:22px 0 14px;}
+  .section-band .sname{font-family:'Fraunces',serif; font-weight:700; font-size:1.02rem;}
+  .section-band .smeta{font-family:'JetBrains Mono',monospace; font-size:.66rem; color:var(--muted); text-transform:uppercase; letter-spacing:.05em;}
+
+  .je{font-family:'JetBrains Mono',monospace; font-size:.78rem; line-height:1.7; background:#161B220a; border:1px solid var(--line); border-radius:8px; padding:12px 16px; margin:10px 0; overflow-x:auto; white-space:pre;}
+
+  /* Flashcards */
+  .flash-wrap{max-width:560px; margin:0 auto;}
+  .flash-progress{display:flex; justify-content:space-between; align-items:center; margin-bottom:14px; font-family:'JetBrains Mono',monospace; font-size:.72rem; color:var(--muted);}
+  .flashcard{background:var(--panel); border:1px solid var(--line); border-radius:16px; min-height:220px; display:flex; align-items:center; justify-content:center; text-align:center; padding:36px 30px; cursor:pointer; box-shadow:var(--shadow); user-select:none; font-size:1.05rem; line-height:1.5; position:relative;}
+  .flashcard .side-lbl{position:absolute; top:14px; left:18px; font-family:'JetBrains Mono',monospace; font-size:.6rem; letter-spacing:.1em; text-transform:uppercase; color:var(--muted);}
+  .flashcard.answer{background:#161B22; color:#E7E9EE;}
+  .flashcard.answer .side-lbl{color:var(--aspe);}
+  .flash-controls{display:flex; gap:10px; justify-content:center; margin-top:18px;}
+  .btn{font-family:'Inter',sans-serif; font-weight:600; font-size:.84rem; border:none; border-radius:8px; padding:10px 18px; cursor:pointer; transition:transform .1s, opacity .15s;}
+  .btn:active{transform:scale(.97);}
+  .btn.primary{background:var(--ink); color:#fff;}
+  .btn.ghost{background:none; border:1px solid var(--line); color:var(--ink);}
+  .deck-select{display:flex; flex-wrap:wrap; gap:8px; margin-bottom:22px;}
+  .chip{font-family:'JetBrains Mono',monospace; font-size:.66rem; letter-spacing:.03em; padding:6px 12px; border-radius:20px; border:1px solid var(--line); background:var(--panel); cursor:pointer; color:var(--muted);}
+  .chip.active{background:var(--ink); color:#fff; border-color:var(--ink);}
+
+  .hidden{display:none !important;}
+  mark{background:#B8862E55; padding:0 2px; border-radius:2px;}
+  .footer-note{color:var(--muted); font-size:.78rem; margin-top:40px; padding-top:16px; border-top:1px solid var(--line);}
+  ::-webkit-scrollbar{width:9px;}
+  ::-webkit-scrollbar-thumb{background:#00000022; border-radius:6px;}
+  .sidebar::-webkit-scrollbar-thumb{background:#ffffff22;}
+</style>
+</head>
+<body>
+<div class="app">
+
+  <!-- SIDEBAR -->
+  <nav class="sidebar">
+    <div class="brand">AFM 291<small>Intermediate Financial Reporting</small></div>
+
+    <div class="nav-group">
+      <div class="nav-label">Start Here</div>
+      <button class="nav-btn active" data-page="overview"><span class="dot"></span>Course Overview</button>
+      <button class="nav-btn" data-page="psp"><span class="dot"></span>The Problem-Solving Process</button>
+    </div>
+
+    <div class="nav-group">
+      <div class="nav-label">Weekly Notes</div>
+      <button class="nav-btn" data-page="w1"><span class="dot"></span>Wk 1 · Conceptual Framework</button>
+      <button class="nav-btn" data-page="w2"><span class="dot"></span>Wk 2 · Revenue Recognition I</button>
+      <button class="nav-btn" data-page="w3"><span class="dot"></span>Wk 3 · Revenue Recognition II</button>
+      <button class="nav-btn" data-page="w4"><span class="dot"></span>Wk 4 · Long-Term Contracts &amp; Provisions</button>
+      <button class="nav-btn" data-page="w5"><span class="dot"></span>Wk 5 · Subsequent Events &amp; Changes</button>
+      <button class="nav-btn" data-page="w7"><span class="dot"></span>Wk 7 · Financial Assets — Equity</button>
+      <button class="nav-btn" data-page="w8"><span class="dot"></span>Wk 8 · Financial Assets — Debt &amp; Cash Flow</button>
+      <button class="nav-btn" data-page="w11"><span class="dot"></span>Wk 11 · Intangibles &amp; Goodwill</button>
+      <button class="nav-btn" data-page="w12"><span class="dot"></span>Wk 12 · Impairment of Long-Term Assets</button>
+      <button class="nav-btn" data-page="w13"><span class="dot"></span>Wk 13 · Recap</button>
+    </div>
+
+    <div class="nav-group">
+      <div class="nav-label">Deep Dive</div>
+      <button class="nav-btn" data-page="case-sun"><span class="dot"></span>Case: Sun Technology Inc. (PBL)</button>
+    </div>
+
+    <div class="nav-group">
+      <div class="nav-label">Review</div>
+      <button class="nav-btn" data-page="ifrsaspe"><span class="dot"></span>IFRS vs ASPE Quick Reference</button>
+      <button class="nav-btn" data-page="practiceexam"><span class="dot"></span>Practice PBL Exam</button>
+      <button class="nav-btn" data-page="flashcards"><span class="dot"></span>Flashcard Self-Test</button>
+    </div>
+  </nav>
+
+  <!-- MAIN -->
+  <main class="main">
+    <div class="topbar">
+      <div class="search"><input id="searchBox" type="text" placeholder="Search notes… (e.g. 'SPPI', 'onerous', 'IAS 37')"></div>
+      <div class="pillar-key">
+        <span><i style="background:var(--ifrs)"></i>IFRS</span>
+        <span><i style="background:var(--aspe)"></i>ASPE</span>
+        <span><i style="background:var(--judge)"></i>Judgement</span>
+      </div>
+    </div>
+
+    <div class="content">
+
+      <!-- ================= OVERVIEW ================= -->
+      <section class="page active" id="overview">
+        <div class="eyebrow">AFM 291 · Spring 2026 · University of Waterloo</div>
+        <h1>Intermediate Financial Reporting</h1>
+        <p class="sub">Instructor: Donna Psutka. A PBL (Problem-Based Learning) course: every week pairs a lecture with a case-based tutorial, and the midterms/final exam are built in exactly the same case-based format.</p>
+
+        <div class="grid3" style="margin-bottom:22px;">
+          <div class="stat"><div class="num">PBL</div><div class="lbl">Weekly problem-based learning tutorials</div></div>
+          <div class="stat"><div class="num">IFRS +<br>ASPE</div><div class="lbl">Every topic compares both standards</div></div>
+          <div class="stat"><div class="num">4-Step</div><div class="lbl">Problem-Solving Process used throughout</div></div>
+        </div>
+
+        <div class="card">
+          <h3>Course learning outcome</h3>
+          <blockquote>"Apply a problem-solving process to routine transactions and events related to assets, revenue and their related accounts to assess the recognition, measurement and subsequent measurement of these financial statement elements under IFRS and ASPE."</blockquote>
+          <p>A student comment featured directly in the Week 1 deck: <i>"The PBL sessions [were] very helpful as the process was replicated in the assessments (i.e. midterms and/or final exam)."</i> — in other words, the way you practice weekly <b>is</b> the way you'll be tested. Treat every PBL scenario as exam rehearsal.</p>
+        </div>
+
+        <div class="card">
+          <h3>Why IFRS <i>and</i> ASPE, always</h3>
+          <ul class="notes">
+            <li><b>IFRS (International Financial Reporting Standards)</b> — required for publicly accountable enterprises (publicly traded companies, or private companies that need IFRS for a specific reason, e.g. a bank covenant requires it, or the company is planning to go public in the near term).</li>
+            <li><b>ASPE (Accounting Standards for Private Enterprises)</b> — the default option for private Canadian companies that don't need IFRS.</li>
+            <li>Almost every PBL and exam question requires you to first determine <i>which</i> standard applies (a fact usually embedded in the case background), then apply that standard's specific criteria — this is why "Assess the Situation" step 3(a) of the Problem-Solving Process exists.</li>
+          </ul>
+        </div>
+
+        <div class="card">
+          <h3>Recurring theoretical themes (Week 1)</h3>
+          <div class="grid2">
+            <div><b>Information asymmetry</b><p>A condition where some people have more information than others. Accounting exists to transmit information from those who have it to those who need it — "better information leads to better economic decisions."</p></div>
+            <div><b>Conceptual Framework — Who / How / What</b><p><b>Who</b> are the users (existing/potential investors, lenders, other creditors)? <b>How</b> do they use it (making resource-allocation decisions)? <b>What</b> do they need (amount, timing and risk/uncertainty of future cash flows)?</p></div>
+            <div><b>Non-GAAP measures</b><p>Numbers like EBITDA, Adjusted EBIT, and Free Cash Flow reported <i>outside</i> the financial statements (press releases, MD&amp;A) — not defined by IFRS or ASPE, so comparability across companies is limited.</p></div>
+            <div><b>Earnings management</b><p>"The active manipulation of accounting information to create an altered impression of the firm's financial performance, as measured by its earnings" — exploits the judgement and estimates inherent in accruals and deferrals.</p></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= PROBLEM-SOLVING PROCESS ================= -->
+      <section class="page" id="psp">
+        <div class="eyebrow">The core tool of this course — memorize this structure</div>
+        <h1>The Problem-Solving Process</h1>
+        <p class="sub">This is the exact structure used in every PBL, both midterms, and the final exam. Every case-based answer you write in AFM 291 should be organized around these four stages.</p>
+
+        <div class="diagram">
+          <div class="diagram-title">The four stages</div>
+          <div class="step-flow">
+            <div class="step-node" style="background:var(--ifrs);"><span class="n">1</span>Assess the Situation</div>
+            <span class="step-arrow">→</span>
+            <div class="step-node" style="background:var(--aspe);"><span class="n">2</span>Identify the Issue(s)</div>
+            <span class="step-arrow">→</span>
+            <div class="step-node" style="background:var(--judge);"><span class="n">3</span>Analyze the Issue(s)</div>
+            <span class="step-arrow">→</span>
+            <div class="step-node" style="background:#3E4A63;"><span class="n">4</span>Conclude, Justify &amp; Recommend</div>
+          </div>
+          <div class="diagram-caption">Never skip a stage, and never analyze before you've clearly identified <i>what</i> the issue is — a common way to lose marks is jumping straight to a journal entry without stating why it's an issue.</div>
+        </div>
+
+        <div class="card">
+          <div class="psp-flow">
+            <div class="psp-step">
+              <div class="psp-num" style="background:var(--ifrs);">1</div>
+              <div class="psp-body">
+                <b>Assess the Situation</b>
+                <span>
+                <ul class="notes" style="margin-top:6px;">
+                  <li>Read the information carefully — scan first, then do a detailed reading.</li>
+                  <li>Identify the users of the financial statements and their objectives: Who are the key users? Who requested the information? What have they specifically asked you to do?</li>
+                  <li>Identify contextual factors: Is the entity publicly traded (IFRS) or private (ASPE, unless IFRS is required or appropriate — e.g. a bank requires it, or the company is going public soon)? What's the entity's industry and business model? Are there circumstances that might bias the decision-maker toward a preferred treatment (e.g. management wants to hit an earnings target)? What's material?</li>
+                  <li>Identify the relevant past and planned future transactions/events and build a timeline.</li>
+                </ul>
+                </span>
+              </div>
+            </div>
+            <div class="psp-step">
+              <div class="psp-num" style="background:var(--aspe);">2</div>
+              <div class="psp-body">
+                <b>Identify the Issue(s)</b>
+                <span>Explain what the financial reporting issue(s) is, and <i>why</i> you think it's an issue, using specific case facts — not generic textbook language. Tie every issue back to something the case actually said.</span>
+              </div>
+            </div>
+            <div class="psp-step">
+              <div class="psp-num" style="background:var(--judge);">3</div>
+              <div class="psp-body">
+                <b>Analyze the Issue(s)</b>
+                <span>
+                <ul class="notes" style="margin-top:6px;">
+                  <li>Determine whether a relevant accounting standard applies to support your analysis — if so, also consider whether the Conceptual Framework adds useful support.</li>
+                  <li>If no standard applies, apply the Conceptual Framework directly.</li>
+                  <li>For each issue, apply the relevant standard(s) (specific standard and/or Conceptual Framework) to the specific case facts — where applicable, argue both sides.</li>
+                  <li>Identify where estimates and/or judgement are required.</li>
+                  <li>Reality-check your analysis against the case context — does it make sense? Does it tie back to the objective identified in Step 1?</li>
+                </ul>
+                </span>
+              </div>
+            </div>
+            <div class="psp-step">
+              <div class="psp-num" style="background:#3E4A63;">4</div>
+              <div class="psp-body">
+                <b>Conclude, Justify and Recommend</b>
+                <span>
+                <ul class="notes" style="margin-top:6px;">
+                  <li>Think before you write.</li>
+                  <li>For each issue, clearly and concisely state your specific financial reporting choice and document your rationale.</li>
+                  <li>Consider the impact on the Balance Sheet (Statement of Financial Position) and the Income Statement.</li>
+                  <li>Recommend the appropriate journal and/or correcting entries.</li>
+                </ul>
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="callout exam"><b>Critical distinction</b><b>Conclude</b> is a <i>comment</i> — a statement of your accounting position and why. <b>Recommend</b> is an <i>action</i> — the specific journal entry, disclosure, or presentation change that follows from your conclusion. Exam graders are looking for both, explicitly.</div>
+
+        <div class="card">
+          <h3>How to use this on every PBL and exam question</h3>
+          <ol style="padding-left:1.2em; font-size:.9rem; line-height:1.9;">
+            <li>Before writing anything, scan the whole case once, then re-read it slowly and note the entity's IFRS/ASPE status, industry, and any hints of management bias or a specific ask from a supervisor/user.</li>
+            <li>List every financial reporting issue you can find — revenue timing? asset vs. expense? a provision vs. a contingency? — and for each, write one sentence connecting it to specific case facts.</li>
+            <li>For each issue, walk the relevant standard's criteria one at a time against the case facts (this is exactly the "Criteria | Met?" table format used throughout the lecture slides — reproduce that structure in your own answer).</li>
+            <li>Finish every issue with an explicit conclusion sentence and the resulting journal entry — don't leave the reader to infer your position from the numbers alone.</li>
+          </ol>
+        </div>
+      </section>
+
+      <!-- ================= WEEK 1 ================= -->
+      <section class="page" id="w1">
+        <div class="eyebrow">Week 1</div>
+        <h1>Conceptual Framework &amp; Financial Reporting Theory</h1>
+        <p class="sub">The theoretical foundation everything else builds on: who financial statements are for, what makes information useful, and how IFRS and ASPE frame the same questions slightly differently.</p>
+
+        <div class="subhead">Information asymmetry</div>
+        <div class="card">
+          <div class="callout def"><b>Information asymmetry</b>A condition in which some people have more information than others. Accounting is the production of information about an enterprise and the transmission of that information from those who have it to those who need it (Lo &amp; Fisher).</div>
+          <p>"Better information leads to better economic decisions." The recurring "buying a used car" analogy: buyers want <b>relevant</b> and <b>reliable</b> information to support decisions about allocating capital (loaning funds, investing).</p>
+        </div>
+
+        <div class="subhead">The Conceptual Framework — Who, How, What</div>
+        <div class="card">
+          <table>
+            <tr><th>Criteria</th><th>IFRS Conceptual Framework</th><th>ASPE Financial Statement Concepts (1000)</th></tr>
+            <tr><td><b>Who?</b></td><td colspan="2">Existing and potential investors, lenders and other creditors ("users")</td></tr>
+            <tr><td><b>How?</b></td><td colspan="2">Making resource-allocation decisions (buying/selling/holding instruments; providing/settling loans; exercising voting rights) and/or assessing management stewardship (ASPE)</td></tr>
+            <tr><td><b>What?</b></td><td colspan="2">Financial information about the amount, timing and risk/uncertainty of future cash flows — an entity's economic resources, obligations, equity, and changes in them</td></tr>
+          </table>
+          <div class="callout def"><b>IFRS 1.2 (verbatim)</b>"The objective of general-purpose financial reporting is to provide financial information about the reporting entity that is useful to existing and potential investors, lenders and other creditors… in making decisions relating to providing resources to the entity."</div>
+        </div>
+
+        <div class="subhead">Qualitative characteristics — IFRS vs. ASPE</div>
+        <div class="card">
+          <table>
+            <tr><th>IFRS (Conceptual Framework)</th><th>ASPE (1000)</th></tr>
+            <tr><td><b>Fundamental:</b> Relevance (predictive &amp; confirmatory value, includes materiality); Faithful Representation (complete, neutral, free from error)</td><td><b>Core:</b> Relevance (predictive value and feedback, timeliness); Reliability (representational faithfulness, verifiability, neutrality, conservatism)</td></tr>
+            <tr><td><b>Enhancing:</b> Comparability, Understandability, Verifiability, Timeliness</td><td>Understandability, Comparability</td></tr>
+            <tr><td><b>Constraint:</b> Cost/benefit</td><td><b>Constraints:</b> Benefit/cost, Materiality</td></tr>
+            <tr><td colspan="2" style="font-size:.78rem; color:var(--muted);">Note: IFRS's neutrality is "supported by the exercise of prudence"; ASPE's Reliability explicitly includes conservatism.</td></tr>
+          </table>
+          <p><b>Materiality (both frameworks):</b> information is material if omitting, misstating, or obscuring it could reasonably be expected to influence the decisions users make (IFRS: "influences decisions"; ASPE: "probable that its omission or misstatement would influence or change a decision").</p>
+        </div>
+
+        <div class="subhead">Complete set of financial statements</div>
+        <div class="card">
+          <table>
+            <tr><th>IFRS (IAS 1)</th><th>ASPE (1400)</th></tr>
+            <tr><td>Statement of Financial Position</td><td>Balance Sheet</td></tr>
+            <tr><td>Statement of Profit or Loss and Other Comprehensive Income</td><td>Income Statement</td></tr>
+            <tr><td>Statement of Changes in Equity</td><td>Statement of Retained Earnings</td></tr>
+            <tr><td>Statement of Cash Flows</td><td>Cash Flow Statement</td></tr>
+            <tr><td colspan="2">Notes to the financial statements — both standards reference the going concern concept</td></tr>
+          </table>
+        </div>
+
+        <div class="subhead">Elements — Assets, recognition</div>
+        <div class="card">
+          <table>
+            <tr><th>IFRS (Conceptual Framework)</th><th>ASPE (1000)</th></tr>
+            <tr><td>A present economic resource (a right that has the potential to produce economic benefits)</td><td>Future benefit to contribute directly or indirectly to future net cash flows</td></tr>
+            <tr><td>Controlled by the entity</td><td>Entity can control access to the benefit</td></tr>
+            <tr><td>As a result of past events</td><td>The transaction or event giving rise to the entity's right to, or control of, the benefit has already occurred</td></tr>
+          </table>
+          <div class="callout def"><b>IFRS Recognition (5.6)</b>"Only items that meet the definition of an asset, a liability or equity are recognised in the statement of financial position. Similarly, only items that meet the definition of income or expenses are recognised in the statement(s) of financial performance. However, not all items that meet the definition of one of those elements are recognised."</div>
+          <p style="font-size:.82rem; color:var(--muted);">The recurring "Expenditures" question sequence used throughout the course: is it an <b>Asset?</b> or an <b>Expense?</b> → what's the <b>Recognition</b> point? → what's the <b>Classification</b>? → <b>Initial Measurement</b>? → <b>Subsequent Measurement</b>? This exact sequence reappears for intangibles (Week 11) and financial assets (Weeks 7–8).</p>
+        </div>
+
+        <div class="subhead">Purpose of the Conceptual Framework</div>
+        <div class="card">
+          <div class="callout def"><b>IFRS SP1.1–1.2</b>The Conceptual Framework exists to: (a) assist the IASB in developing Standards based on consistent concepts; (b) assist preparers in developing consistent accounting policies when no Standard applies, or when a Standard allows a choice; and (c) assist all parties in understanding and interpreting the Standards. <b>"The Conceptual Framework is not a Standard. Nothing in the Conceptual Framework overrides any Standard."</b></div>
+        </div>
+
+        <div class="subhead">Non-GAAP financial measures</div>
+        <div class="card">
+          <ul class="notes">
+            <li>Financial statements themselves follow GAAP (IFRS or ASPE) — e.g. Net Income on the Income Statement.</li>
+            <li>Non-GAAP measures live <i>outside</i> the financial statements — press releases, MD&amp;A — e.g. EBITDA, Adjusted EBIT, Free Cash Flow.</li>
+            <li>The Conceptual Framework explicitly recognizes this limitation: general-purpose financial reports "do not and cannot provide all of the information that existing and potential investors, lenders and other creditors need" — users must also consider other sources (economic conditions, political climate, industry outlook).</li>
+            <li><b>IFRS 18</b> (new standard on Presentation and Disclosure in Financial Statements) responds to concerns about: variety in P&amp;L structure/subtotals/content; lack of understanding of how management-defined performance measures are calculated and why they're used; and lack of clarity on what belongs on the face of the statements vs. in the notes. It introduces new defined categories and subtotals in the P&amp;L (referenced again in Weeks 7–8 and 13 for cash flow statement placement of interest/dividends).</li>
+          </ul>
+        </div>
+
+        <div class="subhead">Earnings management</div>
+        <div class="card">
+          <div class="callout def"><b>Earnings management</b>"The active manipulation of accounting information to create an altered impression of the firm's financial performance, as measured by its earnings."</div>
+          <p>Operates through <b>judgement</b> and <b>estimates</b> embedded in accruals and deferrals — the same accruals/deferrals that, applied in an unbiased way, are simply normal accounting, become earnings management when applied with an excessive or insufficient bias. This is exactly why "Assess the Situation" asks you to identify circumstances that might bias a decision-maker toward a preferred accounting treatment.</p>
+        </div>
+      </section>
+
+      <!-- ================= WEEK 2 ================= -->
+      <section class="page" id="w2">
+        <div class="eyebrow">Week 2</div>
+        <h1>Revenue Recognition I — The IFRS 15 Five-Step Model</h1>
+        <p class="sub">Why revenue is the single most exam-relevant topic in this course, and the full five-step model with worked examples for each step.</p>
+
+        <div class="subhead">Why revenue is important</div>
+        <div class="card">
+          <ul class="notes">
+            <li>Common to almost all entities and a significant number on the financial statements.</li>
+            <li>Key metric for net income; the basis for EPS; revenue growth is a KPI for almost every entity.</li>
+            <li>Judgement is required in many revenue recognition scenarios — which means it's subject to manipulation (ties directly back to Week 1's earnings management).</li>
+          </ul>
+          <div class="callout def"><b>Revenue vs. Gains</b>IFRS 15: revenue is income arising in the course of an entity's <i>ordinary</i> activities. ASPE 1000: increases in economic resources from inflows/enhancements of assets or reductions of liabilities, resulting from the entity's ordinary activities. <br><br><i>Example:</i> Company A (a land developer) sells land as its ordinary business → <b>revenue</b>. Company B (a security-systems manufacturer) sells land it held for capital appreciation → <b>gain on sale</b>. Same transaction type, different classification, because "ordinary activities" differs by entity.</div>
+        </div>
+
+        <div class="diagram">
+          <div class="diagram-title">IFRS 15 — the five-step revenue recognition model</div>
+          <div class="step-flow">
+            <div class="step-node" style="background:var(--ifrs);"><span class="n">Step 1</span>Identify the Contract</div>
+            <span class="step-arrow">→</span>
+            <div class="step-node" style="background:var(--ifrs);"><span class="n">Step 2</span>Identify Performance Obligations</div>
+            <span class="step-arrow">→</span>
+            <div class="step-node" style="background:var(--aspe);"><span class="n">Step 3</span>Determine the Transaction Price</div>
+            <span class="step-arrow">→</span>
+            <div class="step-node" style="background:var(--aspe);"><span class="n">Step 4</span>Allocate the Transaction Price</div>
+            <span class="step-arrow">→</span>
+            <div class="step-node" style="background:var(--judge);"><span class="n">Step 5</span>Recognize Revenue</div>
+          </div>
+          <div class="diagram-caption">IFRS 15's stated objective: "to establish the principles that an entity shall apply to report useful information to users of financial statements about the nature, amount, timing and uncertainty of revenue and cash flows arising from a contract with a customer."</div>
+        </div>
+
+        <div class="subhead">ASPE's alternative approach (no 5-step model)</div>
+        <div class="card">
+          <p>ASPE does not use the 5-step model. Instead, ASPE recognizes revenue when <b>all</b> of the following are met:</p>
+          <ul class="notes">
+            <li><b>Performed</b> — including evidence of an arrangement</li>
+            <li><b>Measurable</b> — the amount can be reliably measured</li>
+            <li><b>Collection reasonably assured</b></li>
+            <li><b>Risks and rewards transferred</b> (vs. IFRS's "transfer of control")</li>
+          </ul>
+          <div class="callout exam"><b>Exam angle</b>IFRS's core concept is <b>transfer of control</b>; ASPE's is <b>transfer of risks and rewards</b>. These usually — but not always — happen at the same point, so a case can present a scenario where the two frameworks reach different conclusions on timing.</div>
+        </div>
+
+        <div class="subhead">Step 1 — Identify the Contract</div>
+        <div class="card">
+          <p>All five criteria must be met:</p>
+          <ul class="notes">
+            <li>Contract has been approved (in writing, orally, or per customary business practice)</li>
+            <li>The rights regarding goods/services to be transferred can be identified</li>
+            <li>The payment terms are specified</li>
+            <li>The contract has commercial substance</li>
+            <li>Collection of consideration is probable</li>
+          </ul>
+        </div>
+
+        <div class="subhead">Step 2 — Identify the Performance Obligation(s)</div>
+        <div class="card">
+          <p>A promised good/service is a separate performance obligation (PO) only if it is <b>distinct</b> — both tests below must be met:</p>
+          <table>
+            <tr><th>Test</th><th>Question</th></tr>
+            <tr><td><b>Capable of being distinct</b></td><td>Can the customer benefit from the good/service on its own, or together with other readily available resources? (Watch for significant integration.)</td></tr>
+            <tr><td><b>Distinct within the context of the contract</b></td><td>Is the promise separately identifiable from other promises in the contract? (Watch for modification/customization, or highly interdependent/interrelated items.)</td></tr>
+          </table>
+          <p style="font-size:.82rem; color:var(--muted);">For AFM 291 purposes, analyze "separately identifiable" by considering <b>performance risks</b> and/or <b>inputs and outputs</b>.</p>
+          <div class="callout case"><b>Worked example — Equipment Ltd.</b>Sells a packaging machine (normal price $750,000) and a forklift truck (normal price $325,000) for a combined $1,000,000. Delivered on different dates. Both capable of being distinct (each usable on its own) and distinct within the context of the contract (no significant integration/customization between a packaging machine and a forklift). <b>Conclusion: 2 performance obligations.</b></div>
+          <div class="callout case"><b>Worked example — Hospital construction contract</b>A contractor manages a full hospital build: engineering, site clearance, foundation, procurement, construction, piping/wiring, equipment installation, finishing. Each item is capable of being distinct on its own, <b>but</b> they are highly interdependent and integrated into one overall deliverable (a functioning hospital) — not distinct within the context of the contract. <b>Conclusion: 1 performance obligation.</b> This is the same reasoning applied to Sun Technology Inc.'s solar panel contracts (see the Case Deep-Dive).</div>
+        </div>
+
+        <div class="subhead">Step 3 — Determine the Transaction Price</div>
+        <div class="card">
+          <p>IFRS 15 par. 48: consider the effects of <b>variable consideration</b>, constraining estimates of variable consideration, <b>significant financing components</b>, non-cash consideration, and consideration payable to a customer.</p>
+          <h3 style="margin-top:14px;">Variable consideration — two estimation methods</h3>
+          <table>
+            <tr><th>Method</th><th>When to use</th></tr>
+            <tr><td><b>Expected value</b></td><td>Probability-weighted — appropriate for a large number of outcomes with similar characteristics</td></tr>
+            <tr><td><b>Most likely amount</b></td><td>Appropriate when there are only two possible outcomes (e.g. a contract is either achieved or not achieved)</td></tr>
+          </table>
+          <p style="font-size:.82rem; color:var(--muted);">Principle: estimate the consideration the entity expects to be entitled to — do not artificially overstate revenue at the time of sale.</p>
+
+          <h3 style="margin-top:14px;">Significant financing component — worked example (Barnett Corp.)</h3>
+          <p>Barnett sells a machine for $20,000 cash down + four annual instalments of $40,000 (total cash = $180,000), at an appropriate annual interest rate of 9%. IFRS 15 par. 61: adjust the promised consideration so revenue reflects the <i>cash selling price</i> — what the customer would have paid if paying cash at the point of transfer.</p>
+          <div class="je">Transaction Price:
+  Deposit                                    $ 20,000.00
+  Deferred payments (PV of $40,000, n=4, i=9%)  129,588.80
+  Cash-equivalent price (= Revenue)          $149,588.80
+
+Jan 1, 2025 journal entry:
+  Cash                          20,000.00
+  Long-term Note Receivable    129,588.80
+      Revenue                              149,588.80
+
+(Cash $180,000 total = Revenue $149,588.80 + Interest Income $30,411.20,
+ recognized over the 4 years using the effective interest method.)</div>
+          <p style="font-size:.82rem; color:var(--muted);">ASPE permits straight-line amortization of the financing component as an alternative to the effective interest method; IFRS requires the effective interest method.</p>
+        </div>
+
+        <div class="subhead">Step 4 — Allocate the Transaction Price</div>
+        <div class="card">
+          <p>Allocate based on <b>relative stand-alone selling prices</b> when there is more than one performance obligation.</p>
+          <div class="callout case"><b>Worked example — Equipment Ltd. (continued)</b>
+          <table style="margin-top:6px;">
+            <tr><th>Performance Obligation</th><th class="num">Stand-alone Price</th><th class="num">% Allocation</th><th class="num">Allocated Price</th></tr>
+            <tr><td>Packaging Machine</td><td class="num">$750,000</td><td class="num">69.77%</td><td class="num">$697,674</td></tr>
+            <tr><td>Forklift Truck</td><td class="num">$325,000</td><td class="num">30.23%</td><td class="num">$302,326</td></tr>
+            <tr><td><b>Total</b></td><td class="num"><b>$1,075,000</b></td><td class="num"><b>100.00%</b></td><td class="num"><b>$1,000,000</b></td></tr>
+          </table>
+          </div>
+        </div>
+
+        <div class="subhead">Step 5 — Recognize Revenue</div>
+        <div class="card">
+          <p>For <i>each</i> performance obligation, determine whether it's satisfied <b>over time</b> or at a <b>point in time</b>.</p>
+          <h3>Over-time criteria (IFRS 15 par. 35) — meet ANY ONE:</h3>
+          <ul class="notes">
+            <li>The customer simultaneously receives and consumes the benefits as the entity performs (test: would another entity need to substantially re-perform the work completed to date to fulfill the remaining obligation?)</li>
+            <li>The entity's performance creates or enhances an asset (e.g. work in progress) that the customer controls as it's created/enhanced</li>
+            <li>The entity's performance does not create an asset with an alternative use to the entity, <b>and</b> the entity has an enforceable right to payment for performance completed to date</li>
+          </ul>
+          <h3 style="margin-top:12px;">Point-in-time indicators (IFRS 15 par. 38) — if none of the above apply:</h3>
+          <ul class="notes">
+            <li>The entity has a present right to payment for the asset</li>
+            <li>The customer has legal title to the asset</li>
+            <li>The entity has transferred physical possession of the asset</li>
+            <li>The customer has the significant risks and rewards of ownership</li>
+            <li>The customer has accepted the asset</li>
+          </ul>
+          <div class="callout exam"><b>Exam angle</b>Custom/customized products built specifically for one client with no resale value to the seller very often satisfy the "no alternative use + enforceable right to payment" over-time test — this is the exact reasoning that applies to Sun Technology Inc.'s custom solar panel arrays.</div>
+        </div>
+      </section>
+
+      <!-- ================= WEEK 3 ================= -->
+      <section class="page" id="w3">
+        <div class="eyebrow">Week 3</div>
+        <h1>Revenue Recognition II — Warranties &amp; Over-Time Measurement Methods</h1>
+        <p class="sub">Assurance-type warranties, series of distinct goods/services, ASPE's percentage-of-completion vs. completed-contract choice, and the input vs. output methods for measuring progress.</p>
+
+        <div class="subhead">Warranties — Assurance-type</div>
+        <div class="card">
+          <div class="callout def"><b>Assurance warranty</b>A warranty that simply provides the customer assurance that the good complies with agreed-upon specifications. This is <b>not</b> a separate performance obligation — instead, it's accounted for as a <b>provision</b> (a warranty liability/expense), consistent with IAS 37 (covered in Week 4).</div>
+          <p style="font-size:.82rem; color:var(--muted);">Contrast with a <i>service-type</i> warranty (providing a service beyond basic assurance of specification compliance), which <i>is</i> a separate performance obligation with its own allocated transaction price — flagged in the deck but not the current course focus.</p>
+        </div>
+
+        <div class="subhead">IFRS 15 — Series of distinct goods or services</div>
+        <div class="card">
+          <p>A series of distinct goods or services that are substantially the same and have the same pattern of transfer to the customer can be treated as a <b>single performance obligation</b> satisfied over time — this is the basis for the KTI/Polarian shipping-services example below (36 months of substantially identical delivery services = one over-time PO).</p>
+        </div>
+
+        <div class="subhead">ASPE — Percentage of completion vs. completed contract</div>
+        <div class="card">
+          <p>Where performance is over time under ASPE's "performed" criterion, ASPE offers a choice between two methods:</p>
+          <table>
+            <tr><th>Method</th><th>Approach</th></tr>
+            <tr><td><b>Percentage of completion</b></td><td>Recognize revenue/profit progressively as work is performed — used when the entity can reasonably estimate progress toward completion.</td></tr>
+            <tr><td><b>Completed contract</b></td><td>Recognize revenue/profit only when the contract is substantially complete — used when the entity cannot reasonably estimate progress.</td></tr>
+          </table>
+        </div>
+
+        <div class="subhead">Measuring progress — Input vs. Output methods</div>
+        <div class="card">
+          <table>
+            <tr><th>Method</th><th>Basis</th></tr>
+            <tr><td><b>Input method</b></td><td>Costs incurred to date ÷ total expected costs — measures the entity's <i>effort/inputs</i> toward satisfying the obligation. Most common in this course (KTI/Polarian, Sun Technology).</td></tr>
+            <tr><td><b>Output method</b></td><td>Directly measures the value transferred to the customer — e.g. surveys of performance completed, appraisals of results achieved, milestones reached, units produced/delivered.</td></tr>
+          </table>
+          <div class="callout exam"><b>Exam angle</b>A cost-overrun (actual costs exceeding budget) inflates the input-method percentage-complete <i>without necessarily reflecting more value delivered to the customer</i> — this is a common discussion point: does the input method still faithfully represent the transfer of control, or would an output method (e.g. based on units/buildings actually completed and functional) better depict performance? This exact question is asked directly in the Sun Technology Inc. case.</div>
+        </div>
+
+        <div class="subhead">Worked example — Path Pavers (output method)</div>
+        <div class="card">
+          <p>Where a contract's progress can be reliably measured by physical output (e.g. kilometres of road paved, square footage completed) rather than cost inputs, the output method directly ties revenue recognized to the proportion of the physical job completed — bypassing any distortion from cost efficiency or inefficiency during the period.</p>
+        </div>
+      </section>
+
+      <!-- ================= WEEK 4 ================= -->
+      <section class="page" id="w4">
+        <div class="eyebrow">Week 4</div>
+        <h1>Long-Term Contracts, Onerous Contracts &amp; Provisions</h1>
+        <p class="sub">The full accounting cycle for a multi-year over-time contract, what makes a contract "onerous," and the IAS 37 decision tree for provisions, contingent liabilities, and contingent assets.</p>
+
+        <div class="subhead">Worked example — Kool Transportation Inc. (KTI) × Polarian Life Sciences</div>
+        <div class="card">
+          <p>KTI signs a 3-year, fixed-price ($9,100,000) contract on Jan 1, 20X1 to provide temperature-controlled shipping. KTI applies the <b>input method</b> for over-time performance obligations. Original cost estimate: $2,010,000 (20X1) + $3,000,000 (20X2) + $3,300,000 (20X3) = $8,310,000 total, implying $790,000 gross profit.</p>
+          <h3 style="margin-top:12px;">20X1</h3>
+          <p>Actual 20X1 costs ≈ estimate ($2,010,000); 20X2/20X3 estimates unchanged.</p>
+          <div class="je">% complete = 2,010,000 / 8,310,000 = 24.19%
+Revenue 20X1 = 24.19% x $9,100,000 = $2,201,083
+
+Cost of Sales                2,010,000
+WIP (Contract Asset)           191,083
+    Revenue - Shipping Services          2,201,083
+
+Gross profit recognized 20X1 = $191,083</div>
+          <h3 style="margin-top:12px;">20X2</h3>
+          <p>Fuel/insurance costs spike: actual 20X2 costs = $3,490,000 (vs. $3,000,000 budgeted). Revised 20X3 estimate = $3,870,000.</p>
+          <div class="je">Cumulative % complete = (2,010,000+3,490,000) / (2,010,000+3,490,000+3,870,000)
+                      = 5,500,000 / 9,370,000 = 58.70%
+Cumulative revenue = 58.70% x 9,100,000 = $5,341,515
+Less revenue recognized 20X1                (2,201,083)
+20X2 Revenue                                $3,140,432
+
+Cost of Sales                3,490,000
+    WIP (Contract Asset)                        349,568
+    Revenue - Shipping Services                3,140,432
+
+Gross LOSS recognized 20X2 = $(349,568)  <- costs grew faster than revenue this period
+Cumulative gross loss to date = 191,083 - 349,568 = $(158,485)</div>
+        </div>
+
+        <div class="subhead">Onerous contracts</div>
+        <div class="card">
+          <div class="callout def"><b>Onerous contract (IAS 37)</b>"A contract in which the unavoidable cost of meeting the obligations under the contract exceeds the economic benefits expected to be received under it." The unavoidable cost is the lower of the cost of fulfilling the contract and any compensation/penalties for failing to fulfil it. If onerous, "the present obligation under the contract shall be recognised and measured as a provision."</div>
+          <div class="je">KTI/Polarian, end of 20X2:
+  Fixed-price contract                     9,100,000
+  Total expected costs (5,500,000 to date + 3,870,000 to complete)  (9,370,000)
+  Expected loss on ENTIRE contract           (270,000)
+
+  Gross loss already recognized to date       (158,485)
+  Additional expected loss = provision needed   111,515
+
+  Expected Loss / Cost of Sales     111,515
+      Provision for Onerous Contract           111,515</div>
+          <div class="callout case"><b>ASPE's parallel guidance on expected losses</b>"When it is probable that total contract costs will exceed total contract revenue, the entire expected loss is recognized as an expense immediately" — regardless of whether work has commenced, or the degree of completion.</div>
+          <p style="font-size:.82rem; color:var(--muted);">Note: the onerous-contract provision itself must still satisfy the three provision-recognition criteria below (present obligation, probable outflow, reliable estimate) — it's simply a specific application of IAS 37's general provisions guidance.</p>
+        </div>
+
+        <div class="subhead">Provisions vs. Contingent Liabilities</div>
+        <div class="card">
+          <div class="grid2">
+            <div><b style="color:var(--ifrs);">Provisions</b><p>Meet the Conceptual Framework's definition of a liability → <b>recognized on the Statement of Financial Position.</b></p></div>
+            <div><b style="color:var(--judge);">Contingent Liabilities</b><p>Do <b>not</b> meet full recognition criteria → <b>not recognized</b> on the SFP; disclosed in notes only (unless remote).</p></div>
+          </div>
+        </div>
+
+        <div class="diagram">
+          <div class="diagram-title">IAS 37 decision tree — liabilities</div>
+          <svg viewBox="0 0 460 300" width="440">
+            <rect x="150" y="10" width="160" height="40" rx="6" fill="#161B22"/>
+            <text x="230" y="35" text-anchor="middle" fill="#fff" font-family="Inter, sans-serif" font-size="11" font-weight="700">Present obligation from</text>
+            <text x="230" y="47" text-anchor="middle" fill="#fff" font-family="Inter, sans-serif" font-size="9">a past/obligating event?</text>
+            <line x1="230" y1="50" x2="230" y2="75" stroke="#B0B6C0" stroke-width="1.5"/>
+            <text x="130" y="70" font-family="JetBrains Mono, monospace" font-size="9" fill="var(--muted)">No →</text>
+            <text x="330" y="70" font-family="JetBrains Mono, monospace" font-size="9" fill="var(--muted)">Yes ↓</text>
+            <rect x="10" y="78" width="150" height="34" rx="6" fill="#666E7A"/>
+            <text x="85" y="99" text-anchor="middle" fill="#fff" font-family="Inter, sans-serif" font-size="9.5">No provision, no disclosure</text>
+            <rect x="150" y="78" width="160" height="40" rx="6" fill="#2E5D8A"/>
+            <text x="230" y="100" text-anchor="middle" fill="#fff" font-family="Inter, sans-serif" font-size="10.5" font-weight="700">Probable outflow of</text>
+            <text x="230" y="112" text-anchor="middle" fill="#fff" font-family="Inter, sans-serif" font-size="9">economic resources?</text>
+            <line x1="230" y1="118" x2="230" y2="143" stroke="#B0B6C0" stroke-width="1.5"/>
+            <text x="330" y="138" font-family="JetBrains Mono, monospace" font-size="9" fill="var(--muted)">Yes ↓</text>
+            <text x="130" y="138" font-family="JetBrains Mono, monospace" font-size="9" fill="var(--muted)">No →</text>
+            <rect x="10" y="146" width="150" height="46" rx="6" fill="var(--judge)"/>
+            <text x="85" y="164" text-anchor="middle" fill="#fff" font-family="Inter, sans-serif" font-size="9.5" font-weight="700">Possible obligation,</text>
+            <text x="85" y="176" text-anchor="middle" fill="#fff" font-family="Inter, sans-serif" font-size="9.5" font-weight="700">not remote?</text>
+            <text x="85" y="188" text-anchor="middle" fill="#fff" font-family="JetBrains Mono, monospace" font-size="8">→ Disclose only</text>
+            <rect x="150" y="146" width="160" height="40" rx="6" fill="var(--aspe)"/>
+            <text x="230" y="168" text-anchor="middle" fill="#fff" font-family="Inter, sans-serif" font-size="10.5" font-weight="700">Reliable estimate</text>
+            <text x="230" y="180" text-anchor="middle" fill="#fff" font-family="Inter, sans-serif" font-size="9">possible?</text>
+            <line x1="230" y1="186" x2="230" y2="211" stroke="#B0B6C0" stroke-width="1.5"/>
+            <text x="330" y="206" font-family="JetBrains Mono, monospace" font-size="9" fill="var(--muted)">Yes ↓</text>
+            <text x="130" y="206" font-family="JetBrains Mono, monospace" font-size="9" fill="var(--muted)">No (rare) →</text>
+            <rect x="10" y="214" width="150" height="34" rx="6" fill="var(--judge)"/>
+            <text x="85" y="235" text-anchor="middle" fill="#fff" font-family="Inter, sans-serif" font-size="9.5">Disclose as contingent liability</text>
+            <rect x="150" y="214" width="160" height="46" rx="6" fill="#3C7A5B"/>
+            <text x="230" y="235" text-anchor="middle" fill="#fff" font-family="Inter, sans-serif" font-size="11" font-weight="700">RECOGNIZE A</text>
+            <text x="230" y="249" text-anchor="middle" fill="#fff" font-family="Inter, sans-serif" font-size="11" font-weight="700">PROVISION</text>
+          </svg>
+          <div class="diagram-caption">Reproduce this exact "Criteria | Met?" logic in your written answers: (1) present obligation from an obligating event, (2) probable outflow of economic resources, (3) reliable estimate — all three met = provision; some met = contingent liability disclosure; none/remote = nothing.</div>
+        </div>
+
+        <div class="card">
+          <h3>Worked example — Contaminated land (constructive obligation)</h3>
+          <p>An oil company causes contamination in a country with no environmental legislation, but has a widely-published environmental policy (with a track record of honouring it) to clean up all contamination it causes.</p>
+          <ul class="notes">
+            <li><b>Obligating event?</b> A <i>constructive</i> obligation — no legal requirement, but the published policy + track record creates a valid expectation the company will act, leaving no realistic alternative to settling the obligation. <b>Met.</b></li>
+            <li><b>Probable outflow?</b> Yes.</li>
+            <li><b>Reliable estimate?</b> Yes.</li>
+            <li><b>Conclusion:</b> Provision recognized for the best estimate of clean-up costs.</li>
+          </ul>
+        </div>
+
+        <div class="subhead">ASPE contingent losses — a 2×2 matrix</div>
+        <div class="card">
+          <table>
+            <tr><th></th><th>Likely</th><th>Not Determinable</th><th>Unlikely</th></tr>
+            <tr><td><b>Measurable</b></td><td>Accrue/recognize (disclose any exposure above the accrued amount)</td><td>Disclose</td><td>No accrual, no disclosure</td></tr>
+            <tr><td><b>Not measurable</b></td><td>Disclose</td><td>Disclose</td><td>No accrual, no disclosure</td></tr>
+          </table>
+        </div>
+
+        <div class="subhead">Contingent assets — the asymmetry with contingent liabilities</div>
+        <div class="card">
+          <ul class="notes">
+            <li><b>IFRS:</b> a contingent asset is disclosed (not recognized) when an inflow of economic benefits is <b>probable</b>. If <b>virtually certain</b>, it's no longer contingent — the related asset <i>is</i> recognized.</li>
+            <li><b>ASPE contingent gains:</b> "not accrued in financial statements, as this accounting treatment could result in the recognition of revenue that might never be realized." Disclosed in notes only "when it is likely that a future event will confirm that an asset had been acquired or a liability reduced."</li>
+          </ul>
+          <div class="callout exam"><b>Exam angle — asymmetry</b>Both frameworks are deliberately conservative about gains vs. losses: a <i>probable loss</i> that's measurable gets recognized (a provision), but a <i>probable gain</i> only gets disclosed, never recognized, until it is virtually certain (IFRS) or realized (ASPE). This is the "prudence"/"conservatism" qualitative characteristic from Week 1 in action.</div>
+        </div>
+
+        <div class="subhead">Real-world illustration — Cineplex &amp; Bombardier</div>
+        <div class="card">
+          <p>The lecture repeatedly walks the same three-criteria table (present obligation / probable outflow / reliable estimate) against actual disclosures in Cineplex's and Bombardier's annual reports across different years, showing how the same company's classification of an item can shift from "contingent liability" one year to "provision" the next as facts develop (e.g. a lawsuit's probability of loss increasing, or a settlement becoming more certain) — a good reminder that these classifications are reassessed every reporting period, not fixed at initial recognition.</p>
+        </div>
+      </section>
+
+      <!-- ================= WEEK 5 ================= -->
+      <section class="page" id="w5">
+        <div class="eyebrow">Week 5</div>
+        <h1>Subsequent Events &amp; Accounting Changes</h1>
+        <p class="sub">What to do about events discovered between year-end and the date financial statements are authorized for issue, and the three-way distinction between a change in estimate, a change in accounting policy, and a prior period error.</p>
+
+        <div class="subhead">Subsequent events (IAS 10)</div>
+        <div class="card">
+          <p>The "subsequent events period" runs from the reporting date to the date the financial statements are <b>authorized for issue</b> (a specific date IAS 10 requires companies to disclose).</p>
+          <table>
+            <tr><th>Criteria — Adjusting event</th></tr>
+            <tr><td>1. The event occurs during the subsequent-events period, <b>and</b></td></tr>
+            <tr><td>2. The event provides evidence of conditions that existed <i>at</i> the end of the reporting period</td></tr>
+          </table>
+          <p>If both are met → <b>adjust</b> the financial statements. If the event relates to conditions that arose <i>after</i> year-end (not evidence of a year-end condition) → it's a <b>non-adjusting event</b>, disclosed in the notes only (if material) but the numbers themselves are not changed.</p>
+          <div class="callout def"><b>IAS 10 adjusting-event example</b>"The receipt of information after the reporting period indicating that an asset was impaired at the end of the reporting period… For example: (i) the bankruptcy of a customer that occurs after the reporting period usually confirms that the customer was credit-impaired at the end of the reporting period; and (ii) the sale of inventories after the reporting period may give evidence about their net realisable value at the end of the reporting period."</div>
+        </div>
+
+        <div class="subhead">Worked example — Capilano</div>
+        <div class="card">
+          <p>Year-end is June 30, 20X1. In August, the audit team learns that 25% of year-end inventory was actually contaminated (unsellable) — the financial statements were not yet authorized for issue in October when this was flagged.</p>
+          <ul class="notes">
+            <li><b>Occurs during subsequent-events period?</b> Yes — information received in August, after year-end (June 30) and before statements were authorized for issue (still ongoing in October).</li>
+            <li><b>Evidence of a condition that existed at year-end?</b> Yes — the contamination existed at June 30, it just wasn't discovered until later.</li>
+            <li><b>Conclusion: Adjusting event.</b> Recommended entry: Dr. Inventory Write-down (expense) / Cr. Allowance for Unsellable Inventory.</li>
+          </ul>
+        </div>
+
+        <div class="subhead">Accounting changes (IAS 8) — three categories</div>
+        <div class="card">
+          <table>
+            <tr><th>Category</th><th>Definition</th><th>Applied</th></tr>
+            <tr><td><b>Change in estimate</b></td><td>IFRS: monetary amounts subject to measurement uncertainty. ASPE: an adjustment to the carrying amount of an asset/liability (or its periodic consumption) resulting from reassessing the present status and expected future benefits/obligations. Arises from new information, new developments, or more experience.</td><td><b>Prospectively</b> (forward only — no restatement of prior periods)</td></tr>
+            <tr><td><b>Change in accounting policy</b></td><td>A voluntary change to the specific principles/rules applied when preparing financial statements — permitted only when it provides more reliable and relevant information to users.</td><td><b>Retrospectively</b> (restate prior periods as if the new policy had always applied)</td></tr>
+            <tr><td><b>Prior period error</b></td><td>Omissions or misstatements from a failure to use, or misuse of, reliable information that was available and could reasonably have been expected to be obtained and used when those prior financial statements were prepared — includes math mistakes, misapplied policies, oversights, misinterpretation of facts, and fraud.</td><td><b>Retrospectively</b> (restate as if the error had never happened)</td></tr>
+          </table>
+          <div class="callout exam"><b>Memory aid</b>Estimates look <i>forward</i> (prospective) because new information changed your best guess about the future. Policy changes and errors look <i>backward</i> (retrospective) because the correct treatment was knowable — either it's a deliberate switch to a better policy, or a mistake that should be fixed as if it never happened.</div>
+        </div>
+
+        <div class="subhead">Worked example — Blue Sky Ltd. (both a change in estimate AND a prior period error)</div>
+        <div class="card">
+          <h3>1. Propane Burner Patent — Change in Estimate</h3>
+          <p>Patent purchased Jan 1, 2023 for $2,525,000, originally expected 10-year useful life. Significant technology improvements occurred during 2025; Blue Sky will keep using the existing patent through 2026, then switch to new technology.</p>
+          <ul class="notes">
+            <li>Patent amortization is a monetary amount in the F/S subject to measurement uncertainty (useful life estimate) → <b>change in estimate</b> criteria met.</li>
+            <li>New information (the 2025 technology developments, and management's now-concrete plan to stop using this patent after 2026) changes the estimate of remaining useful life.</li>
+            <li><b>Applied prospectively</b> — the patent's remaining carrying amount (after 2023–2024 amortization) is now amortized over its <i>revised</i> remaining useful life (through end of 2026), with no restatement of 2023/2024.</li>
+          </ul>
+
+          <h3 style="margin-top:16px;">2. Basket Design Patent — Prior Period Error</h3>
+          <p>Another patent, purchased July 2, 2024 for $870,000, was <b>expensed in error</b> in 2024 (internal audit caught this during 2025) — it should have been capitalized. Expected useful life 10 years, no residual value, straight-line.</p>
+          <div class="je">Correction, WITHOUT income tax impact:
+  2024 expense overstated                     870,000
+  2024 amortization expense understated        (43,500)   [870,000/10 x 0.5 year]
+  2024 net income understated                  826,500
+
+  Patent                             870,000
+      Retained Earnings 1/1/2025                826,500
+      Accumulated Amortization - Patent          43,500
+
+  Amortization Expense (2025)         87,000
+      Accumulated Amortization - Patent           87,000
+  (Retrospective correction - adjusts OPENING retained earnings, not 2025 income)
+
+Correction, WITH 30% income tax impact:
+  2024 net income understated (pre-tax)        826,500
+  Additional 2024 income tax expense          (247,950)
+  After-tax 2024 net income understated        578,550
+
+  Patent                             870,000
+      Retained Earnings 1/1/2025                578,550
+      Accumulated Amortization - Patent          43,500
+      Income Taxes Payable                      247,950</div>
+          <div class="callout exam"><b>Exam angle</b>Prior period error corrections hit <b>opening retained earnings</b> of the earliest period presented, never current-year income — this is what "retrospective" means in the journal entry itself, not just in the standard's wording.</div>
+        </div>
+      </section>
+
+      <!-- ================= WEEK 7 ================= -->
+      <section class="page" id="w7">
+        <div class="eyebrow">Week 7 · After Midterm #1</div>
+        <h1>Financial Assets — Equity Investments</h1>
+        <p class="sub">Strategic vs. non-strategic equity investments, why the level of influence you hold determines the entire accounting model, and how the new IFRS 18 affects where dividend income shows up.</p>
+
+        <div class="subhead">Financial asset definition</div>
+        <div class="card">
+          <p>A financial asset includes: cash; an equity instrument of another entity; a contractual right to receive cash or another financial asset from another entity; or a contractual right to exchange financial instruments on potentially favourable terms.</p>
+        </div>
+
+        <div class="subhead">Strategic equity investments — extent of influence</div>
+        <div class="card">
+          <table>
+            <tr><th>Level of influence</th><th>Typical ownership %</th><th>Accounting model</th></tr>
+            <tr><td><b>No significant influence</b> (non-strategic)</td><td>Usually &lt;20%</td><td>IFRS 9 classification (FVPL / FVOCI election) — see below</td></tr>
+            <tr><td><b>Significant influence</b> (strategic)</td><td>Usually 20–50%; rebuttable — based on actual influence, not just % (e.g. board seat, participation in policy decisions, material transactions, technology sharing)</td><td><b>Equity method</b></td></tr>
+            <tr><td><b>Control</b></td><td>Usually &gt;50%, or otherwise controls decisions</td><td>Consolidation (out of scope for AFM 291)</td></tr>
+          </table>
+          <p style="font-size:.82rem; color:var(--muted);">IFRS and ASPE both use a "significant influence" threshold conceptually similar to the 20–50% range, though the specific indicators and default presumptions can differ in wording — always check the case facts (board representation, policy-making participation, material inter-company transactions) rather than relying on the ownership % alone.</p>
+        </div>
+
+        <div class="subhead">Worked example — Kennedy's strategic equity investment</div>
+        <div class="card">
+          <p>Where significant influence exists, the investor uses the <b>equity method</b>: initially recorded at cost, then adjusted each period for the investor's proportionate share of the investee's net income (increases the investment) and dividends received (reduces the investment — treated as a return <i>of</i> the investment, not investment income).</p>
+          <div class="callout exam"><b>Exam angle — IFRS 18 impact on the Cash Flow Statement</b>Under the <i>pre-IFRS 18</i> presentation, dividends received could be shown as an operating or investing cash inflow (policy choice). Under <b>IFRS 18</b>, dividends received from equity-method investees are placed in the <b>Investing</b> category of both the P&amp;L and (by extension) influence the structure of the Cash Flow Statement — part of IFRS 18's broader push for defined, comparable categories (see Week 8 for the full IAS 7 cash flow classification comparison).</div>
+        </div>
+
+        <div class="subhead">Non-strategic equity investments — IFRS 9 classification</div>
+        <div class="card">
+          <table>
+            <tr><th>Classification</th><th>Default or election?</th><th>Subsequent measurement</th></tr>
+            <tr><td><b>FVPL</b> (Fair Value through Profit or Loss)</td><td><b>Default</b> for all equity investments unless the FVOCI election is made</td><td>Fair value each period; all gains/losses (holding <i>and</i> realized) go through net income</td></tr>
+            <tr><td><b>FVOCI</b> (Fair Value through OCI)</td><td><b>Irrevocable election</b>, made instrument-by-instrument at initial recognition</td><td>Fair value each period; holding gains/losses go to OCI, <b>never recycled</b> to net income even on sale (dividend income is the only P&amp;L impact)</td></tr>
+          </table>
+          <p style="font-size:.82rem; color:var(--muted);">Note: <b>amortized cost is never available for equity investments</b> — equity instruments have no maturity date and no fixed principal/interest cash flows, so they automatically fail the SPPI test used for debt (see Week 8).</p>
+          <div class="callout def"><b>ASPE — Financial Assets (Equity)</b>Simpler model than IFRS 9: generally fair value through net income for equity investments quoted in an active market; cost (less impairment) for those that are not.</div>
+        </div>
+
+        <div class="subhead">Worked examples — East Ltd. (FVPL) vs. North Ltd. (FVOCI election)</div>
+        <div class="card">
+          <p>Same fact pattern, two different classification choices, to show the mechanical difference:</p>
+          <div class="grid2">
+            <div><b style="color:var(--ifrs);">East Ltd. — FVPL</b>
+              <ul class="notes">
+                <li>Initial recognition at cost; transaction costs <b>expensed</b> immediately (not added to cost, unlike FVOCI/Amortized Cost)</li>
+                <li>Dividends received → Dividend Income (net income)</li>
+                <li>Subsequent measurement to fair value → gain/loss through net income</li>
+              </ul>
+            </div>
+            <div><b style="color:var(--aspe);">North Ltd. — FVOCI election</b>
+              <ul class="notes">
+                <li>Initial recognition at cost <b>plus</b> transaction costs</li>
+                <li>Dividends received → Dividend Income (still net income — the OCI election only affects <i>holding</i> gains/losses, not dividends)</li>
+                <li>Subsequent measurement to fair value → gain/loss through <b>OCI</b> (Other Comprehensive Income), bypassing net income entirely</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= WEEK 8 ================= -->
+      <section class="page" id="w8">
+        <div class="eyebrow">Week 8</div>
+        <h1>Financial Assets — Debt, Cash Flow Classification &amp; Impairment</h1>
+        <p class="sub">The IFRS 9 debt-classification test (business model + SPPI), a fully worked bond example, where interest and dividends land on the Cash Flow Statement under old vs. new rules, and the two very different impairment models under IFRS and ASPE.</p>
+
+        <div class="subhead">IFRS 9 debt investment classification — two-part test</div>
+        <div class="card">
+          <p>IFRS 9 (4.1.1): classify based on <b>both</b> (a) the entity's business model for managing the asset, AND (b) the asset's contractual cash flow characteristics.</p>
+          <table>
+            <tr><th>Classification</th><th>Business model test</th><th>Cash flow test</th></tr>
+            <tr><td><b>Amortized Cost</b></td><td>"Hold to collect" contractual cash flows</td><td rowspan="2">Solely Payments of Principal and Interest (<b>SPPI</b>)</td></tr>
+            <tr><td><b>FVOCI</b></td><td>"Hold to collect <i>and</i> sell"</td></tr>
+            <tr><td><b>FVPL</b></td><td colspan="2">Default/residual — anything not meeting the above (e.g. trading, or fails SPPI)</td></tr>
+          </table>
+        </div>
+
+        <div class="subhead">Subsequent measurement mechanics</div>
+        <div class="card">
+          <table>
+            <tr><th></th><th>Amortized Cost</th><th>FVOCI (debt)</th></tr>
+            <tr><td>Measured at</td><td>Present value of future cash flows (no fair value remeasurement)</td><td>Fair value each period</td></tr>
+            <tr><td>Premium/discount</td><td>Amortized over the term as interest income, effective interest method</td><td>Amortized the same way (interest income is identical to Amortized Cost)</td></tr>
+            <tr><td>Holding gains/losses</td><td>Not recognized (no FV remeasurement)</td><td>Recognized in OCI</td></tr>
+            <tr><td>Gains/losses on derecognition (sale/maturity)</td><td>Recognized in net income</td><td>Recognized in net income; OCI amounts previously recognized are <b>reclassified/"recycled"</b> out of OCI into net income</td></tr>
+            <tr><td>ASPE equivalent</td><td>Permits straight-line premium/discount amortization as an alternative to effective interest</td><td>ASPE has <b>no OCI equivalent</b> for debt</td></tr>
+          </table>
+          <div class="callout exam"><b>Exam angle</b>FVOCI for <i>debt</i> recycles OCI to net income on sale; FVOCI for <i>equity</i> (Week 7) never recycles. This is one of the most commonly tested IFRS 9 distinctions.</div>
+        </div>
+
+        <div class="subhead">Worked example — Robson Engineering Ltd. (Hydro One bonds)</div>
+        <div class="card">
+          <p>Jan 1, 20X1: Robson buys $100,000 face value of Hydro One 8% bonds for cash. Market rate at purchase = 10%. Bonds mature Jan 1, 20X6 (5 years); interest paid semi-annually (4% per period, 8%/2), on July 1 and Jan 1. Held in a portfolio with the objective of holding to maturity to generate operating cash inflows.</p>
+          <ul class="notes">
+            <li><b>Business model:</b> "hold to collect" (held to maturity for operating cash flow) → supports Amortized Cost <i>or</i> FVOCI depending on whether selling is also part of the model.</li>
+            <li><b>Cash flow test:</b> fixed coupon + principal at maturity = SPPI passes.</li>
+            <li>Because the coupon rate (8%) is below the market rate (10%) at purchase, the bond is acquired at a <b>discount</b> — initial cost is <i>less than</i> $100,000 face value, calculated as the present value of the cash flows (semi-annual $4,000 coupons + $100,000 at maturity) discounted at the market rate of 5% per semi-annual period.</li>
+            <li>Interest income each period is recognized using the <b>effective interest rate method</b>: Interest Income = Carrying amount × market rate (5% per period) — which is <i>higher</i> than the cash coupon received (4% × face value) while the bond trades at a discount, with the difference added to the bond's carrying amount (discount amortization) each period until it reaches face value at maturity.</li>
+          </ul>
+        </div>
+
+        <div class="subhead">Cash Flow Statement classification (IAS 7) — Financial Assets</div>
+        <div class="card">
+          <table>
+            <tr><th>Item</th><th>IFRS classification</th><th>ASPE (Pt II 1540)</th></tr>
+            <tr><td>Purchase/sale of investments</td><td>Investing activities</td><td>Investing activities</td></tr>
+            <tr><td>Interest received</td><td><b>Policy choice</b> pre-IFRS 18 (Operating or Investing); IFRS 18 standardizes placement tied to the new P&amp;L "Investing" category structure</td><td>Fixed classification — no policy choice</td></tr>
+            <tr><td>Dividends received</td><td>Same policy-choice logic as interest, pre-IFRS 18; IFRS 18 ties it to the Investing category</td><td>Fixed classification — no policy choice</td></tr>
+            <tr><td>Interest &amp; dividends paid</td><td>Policy choice (Operating or Financing) pre-IFRS 18; IFRS 18 standardizes</td><td>Fixed classification</td></tr>
+          </table>
+          <div class="callout exam"><b>Exam angle — IFRS 18's core change</b>Before IFRS 18, IFRS gave companies a <b>policy choice</b> for where interest/dividends received and paid appear on the Cash Flow Statement (Operating vs. Investing/Financing) — hurting comparability between companies. IFRS 18 removes much of that choice by introducing defined P&amp;L categories (Operating, Investing, Financing) and tying cash flow statement placement to them. ASPE never offered this choice — it has always had fixed classifications. Expect a case to ask you to identify and apply the correct placement under both "current guidance" (pre-IFRS 18) and "IFRS 18" scenarios.</div>
+        </div>
+
+        <div class="subhead">Financial asset impairment — two very different models</div>
+        <div class="card">
+          <table>
+            <tr><th></th><th>ASPE — Incurred Loss Model</th><th>IFRS 9 — Expected Credit Loss Model</th></tr>
+            <tr><td>When is a loss recognized?</td><td>Only after there's objective evidence of impairment (an actual "loss event" or triggering event has already occurred) — e.g. significant financial difficulty of the issuer, default, or breach of contract</td><td><b>Forward-looking</b> — losses are estimated and recognized <i>before</i> an actual default, based on expected future credit losses</td></tr>
+            <tr><td>Key trigger concept</td><td>Indicators/triggering events (examples: significant financial difficulty, actual default, restructuring due to financial difficulty)</td><td><b>Significant increase in credit risk</b> since initial recognition — moves the asset from a 12-month expected-loss basis to a lifetime expected-loss basis</td></tr>
+            <tr><td>Philosophy</td><td>Reactive — wait for evidence</td><td>Proactive — always carry <i>some</i> expected loss allowance, even on day one</td></tr>
+          </table>
+          <div class="callout exam"><b>Exam angle</b>IFRS 9's expected credit loss model was introduced specifically because the old "incurred loss" approach (which ASPE still uses) was criticized after the 2008 financial crisis for recognizing credit losses "too little, too late." Expect a case to describe deteriorating conditions for a debtor and ask you to identify whether a "significant increase in credit risk" has occurred under IFRS 9, versus whether a "loss event" has occurred under ASPE.</div>
+        </div>
+      </section>
+
+      <!-- ================= WEEK 11 ================= -->
+      <section class="page" id="w11">
+        <div class="eyebrow">Week 11</div>
+        <h1>Intangible Assets &amp; Goodwill</h1>
+        <p class="sub">Purchased vs. internally-generated intangibles, the six-criteria test for capitalizing development costs, subsequent measurement, and why goodwill can never be internally generated.</p>
+
+        <div class="subhead">Does it meet the definition of an intangible asset?</div>
+        <div class="card">
+          <p>Same "Expenditures" sequence from Week 1: is it an <b>Asset</b> or <b>Expense</b>? An intangible asset is an <b>identifiable</b> non-monetary asset without physical substance. "Identifiable" means either separable (can be sold/transferred/licensed independently) or arising from contractual/legal rights.</p>
+          <div class="callout def"><b>Recognition (IFRS &amp; ASPE, separate acquisition)</b>Recognize when it's <b>probable</b> that expected future economic benefits will flow to the entity, <b>and</b> the cost can be measured <b>reliably</b>. For a separately purchased intangible, both criteria are normally considered automatically satisfied by the purchase transaction itself.</div>
+        </div>
+
+        <div class="subhead">Subsequent measurement — amortization</div>
+        <div class="card">
+          <ul class="notes">
+            <li><b>Finite useful life</b> → amortize over that life (straight-line unless another pattern better reflects consumption of benefits) — same mechanics as depreciation for tangible assets.</li>
+            <li><b>Indefinite useful life</b> (no foreseeable limit to the period the asset is expected to generate cash flows — e.g. many trademarks) → <b>not amortized</b>; instead tested for impairment at least annually (see Week 12).</li>
+          </ul>
+        </div>
+
+        <div class="subhead">Internally generated intangibles — the Research vs. Development split</div>
+        <div class="card">
+          <div class="grid2">
+            <div><b style="color:var(--judge);">Research phase</b><p>Original, planned investigation undertaken to gain new scientific/technical knowledge. <b>Always expensed</b> as incurred — too uncertain to capitalize (IFRS &amp; ASPE agree).</p></div>
+            <div><b style="color:var(--ifrs);">Development phase</b><p>Application of research findings to a plan/design for production of new/improved materials, products, processes, etc. <b>Capitalized only if all 6 criteria below are met</b> (IFRS — mandatory); ASPE offers a <b>policy choice</b> to expense or capitalize if its own criteria are met.</p></div>
+          </div>
+
+          <h3 style="margin-top:14px;">IAS 38 — the six development-phase recognition criteria (ALL must be met)</h3>
+          <ol style="padding-left:1.2em; font-size:.9rem; line-height:1.85;">
+            <li>Technical feasibility of completing the intangible asset so it will be available for use or sale</li>
+            <li>Intention to complete the intangible asset and use or sell it</li>
+            <li>Ability to use or sell the intangible asset</li>
+            <li>How the intangible asset will generate probable future economic benefits</li>
+            <li>Availability of adequate technical, financial and other resources to complete development and to use or sell it</li>
+            <li>Ability to reliably measure the expenditure attributable to the intangible asset during its development</li>
+          </ol>
+          <div class="callout def"><b>ASPE Pt II 3064.40–41</b>Entities make an accounting <b>policy choice</b> to either expense development costs as incurred, or capitalize them if criteria similar to IFRS's six are met — this policy choice itself is a distinguishing feature vs. IFRS's mandatory capitalize-if-met rule.</div>
+        </div>
+
+        <div class="subhead">Worked example — Phobia Pharmaceuticals Inc. (PPI), the ARAC drug project</div>
+        <div class="card">
+          <p>PPI (publicly traded, IFRS) spends across 2025 developing a new drug. Applying the six criteria to each phase of spending:</p>
+          <table>
+            <tr><th>Month</th><th>Activity</th><th class="num">Amount</th><th>Expense or Capitalize?</th></tr>
+            <tr><td>Jan</td><td>R&amp;D budget allocated to the project</td><td class="num">$700,000</td><td><i>(Not yet spent on a specific activity — allocate to phases below)</i></td></tr>
+            <tr><td>Feb</td><td>Market research — concludes no competing drug exists, demand confirmed</td><td class="num">$25,000</td><td><b>Expense</b> — this is market research, not directly tied to technical feasibility of the asset itself, and precedes technical feasibility confirmation (research-phase-like activity)</td></tr>
+            <tr><td>Mar</td><td>Pre-clinical testing — limited success only</td><td class="num">$265,000</td><td><b>Expense</b> — technical feasibility not yet established ("limited successful results" fails criterion 1)</td></tr>
+            <tr><td>Apr</td><td>Feasibility study completed after successful clinical testing; regulatory approval received</td><td class="num">$225,000</td><td><b>Capitalize from this point</b> — technical feasibility (1) is now demonstrated by successful testing + regulatory approval</td></tr>
+            <tr><td>May</td><td>Further market research; Board approves project + financing (intention &amp; resources confirmed)</td><td class="num">$30,000</td><td><b>Capitalize</b> — intention (2), ability (3), and availability of resources (5) are now all confirmed by the Board's approval</td></tr>
+            <tr><td>Jun–Oct</td><td>Legal/professional fees for patent process + registration fee</td><td class="num">$60,000</td><td><b>Capitalize</b> — directly attributable cost of securing the legal right to the now-technically-feasible, Board-approved asset</td></tr>
+            <tr><td>Nov–Dec</td><td>Training of sales force to sell the drug</td><td class="num">$30,000</td><td><b>Expense</b> — selling/training costs are never capitalized as part of intangible asset cost, even after all six criteria are otherwise met</td></tr>
+          </table>
+          <p style="font-size:.82rem; color:var(--muted);">The exact "point of capitalization" is a matter of judgement applied to the specific case facts (this is precisely the "Judgement / Estimates" tag that recurs throughout the course) — the general pattern is: expense everything before technical feasibility + intention + resources are all demonstrated, then capitalize direct costs after that point, but never capitalize selling/training/admin costs regardless of timing.</p>
+        </div>
+
+        <div class="subhead">Goodwill</div>
+        <div class="card">
+          <div class="callout def"><b>Goodwill</b>Only recognized when acquired as part of a <b>business combination</b> (IFRS 3 / ASPE Pt II 3064) — the excess of the purchase price over the fair value of identifiable net assets acquired. <b>Internally generated goodwill is never recognized</b> as an asset under either framework, because its cost cannot be reliably distinguished from the cost of developing the business as a whole.</div>
+          <p>Subsequent measurement: goodwill is <b>never amortized</b> — it's tested for impairment at least annually (or more often if indicators exist), and impairment losses on goodwill are <b>never reversed</b> under IFRS (see Week 12).</p>
+        </div>
+
+        <div class="subhead">Presentation and disclosure</div>
+        <div class="card">
+          <p>The lecture illustrates real intangible-asset and goodwill disclosures from Airbus, Bombardier, Nutrien, and Ubisoft — showing how companies disaggregate intangibles (software, patents, trademarks, customer relationships, goodwill) and disclose amortization methods, useful lives, and impairment testing policies in the notes.</p>
+        </div>
+      </section>
+
+      <!-- ================= WEEK 12 ================= -->
+      <section class="page" id="w12">
+        <div class="eyebrow">Week 12</div>
+        <h1>Impairment of Long-Term Assets</h1>
+        <p class="sub">The full process for solving an impairment case: when to test, what to test (a single asset or a group), how IFRS measures impairment in one step where ASPE uses two, and how — and whether — a loss can be reversed.</p>
+
+        <div class="subhead">Preliminary step — annual test, or only if indicators?</div>
+        <div class="card">
+          <table>
+            <tr><th>Asset type</th><th>Testing frequency</th></tr>
+            <tr><td>Finite-life tangible/intangible assets</td><td>Test only <b>if indicators of impairment exist</b></td></tr>
+            <tr><td>Indefinite-life intangibles &amp; Goodwill</td><td>Test <b>at least annually</b>, regardless of indicators</td></tr>
+          </table>
+          <h3 style="margin-top:12px;">Common indicators of impairment</h3>
+          <ul class="notes">
+            <li>External: significant decline in market value, adverse changes in the technological/market/economic/legal environment, increases in market interest rates affecting discount rates, carrying amount of net assets exceeding market capitalization</li>
+            <li>Internal: evidence of obsolescence or physical damage, significant changes in how an asset is used or expected to be used (idle, restructuring, plans to dispose early), evidence that economic performance is worse than expected</li>
+          </ul>
+        </div>
+
+        <div class="subhead">Single asset, or Cash-Generating Unit (CGU)?</div>
+        <div class="card">
+          <div class="callout def"><b>Cash-Generating Unit (CGU)</b>The <b>smallest identifiable group of assets</b> that generates cash inflows that are largely independent of the cash inflows from other assets or groups of assets. If an individual asset doesn't generate independent cash flows on its own (most assets don't — think of one machine on a production line), you must test the whole CGU it belongs to.</div>
+          <p><b>IFRS — "Identifying the Asset":</b> first ask whether the individual asset's recoverable amount can be estimated on its own. If not (the usual case), identify the smallest CGU containing that asset.</p>
+        </div>
+
+        <div class="diagram">
+          <div class="diagram-title">Process for solving an impairment case</div>
+          <div class="step-flow">
+            <div class="step-node" style="background:var(--ifrs);">Indicators exist? (or annual test required)</div>
+            <span class="step-arrow">→</span>
+            <div class="step-node" style="background:var(--aspe);">Single asset or CGU?</div>
+            <span class="step-arrow">→</span>
+            <div class="step-node" style="background:var(--judge);">Test for impairment</div>
+            <span class="step-arrow">→</span>
+            <div class="step-node" style="background:#3E4A63;">Allocate &amp; record the loss</div>
+          </div>
+        </div>
+
+        <div class="subhead">Impairment testing — IFRS (one-step) vs. ASPE (two-step)</div>
+        <div class="card">
+          <table>
+            <tr><th>IFRS (one-step)</th><th>ASPE (two-step)</th></tr>
+            <tr><td>Compare carrying amount directly to <b>recoverable amount</b> = the <i>higher of</i>:<br>(a) Fair value less costs to sell, and<br>(b) Value in use (present value of future cash flows)<br>If carrying amount &gt; recoverable amount → impairment loss = the difference</td><td><b>Step 1 (recoverability test):</b> compare carrying amount to <b>undiscounted</b> future net cash flows. If carrying amount ≤ undiscounted cash flows → no impairment, stop here.<br><b>Step 2 (measurement):</b> only if Step 1 fails — measure the loss as carrying amount less <b>fair value</b>.</td></tr>
+          </table>
+          <div class="callout exam"><b>Exam angle</b>ASPE's undiscounted-cash-flow recoverability test is deliberately a lower bar to clear than IFRS's directly-discounted approach — it's possible for an asset to pass ASPE's Step 1 (undiscounted cash flows still exceed carrying amount) while the same asset would already show impairment under IFRS's one-step, discounted comparison. Always state which framework applies before choosing your test.</div>
+        </div>
+
+        <div class="subhead">Allocating an impairment loss across a CGU</div>
+        <div class="card">
+          <p>When a CGU (containing multiple assets, e.g. two machines) is impaired, the loss is allocated: first to any goodwill within the CGU (fully written off first, if present), then to the other assets in the CGU <b>on a pro-rata basis</b> using their relative carrying amounts — <i>not</i> proportional to impairment loss allocated equally or arbitrarily. No individual asset can be written down below the highest of its own fair value less costs to sell, value in use, or zero.</p>
+        </div>
+
+        <div class="subhead">Impairment reversal</div>
+        <div class="card">
+          <table>
+            <tr><th>IFRS</th><th>ASPE</th></tr>
+            <tr><td>Reversal <b>permitted</b> for assets other than goodwill, if there's a subsequent increase in recoverable amount — reversed up to (but never exceeding) what the carrying amount would have been (net of amortization/depreciation) had no impairment ever been recorded. <b>Goodwill impairment is never reversed.</b></td><td>Reversal is <b>not permitted</b> for any long-lived asset, including goodwill, under the cost model — once impaired, always impaired (unless disposed of).</td></tr>
+          </table>
+          <div class="callout exam"><b>Exam angle</b>This is one of the most tested IFRS/ASPE differences in the intangibles/impairment unit — memorize it directly: <b>IFRS reverses (except goodwill); ASPE never reverses.</b></div>
+        </div>
+
+        <div class="subhead">Real-world illustration — Stora Enso</div>
+        <div class="card">
+          <p>The lecture walks a real impairment disclosure from Stora Enso (a global paper/packaging/wood products company) to show how the process, indicators, CGU identification, and resulting loss are actually presented in annual report notes — useful for seeing what a "complete" impairment disclosure looks like in practice, beyond the mechanics of the calculation itself.</p>
+        </div>
+      </section>
+
+      <!-- ================= WEEK 13 ================= -->
+      <section class="page" id="w13">
+        <div class="eyebrow">Week 13</div>
+        <h1>Recap — Contingencies, Long-Term Contracts &amp; the Cash Flow Statement</h1>
+        <p class="sub">A consolidated review week, revisiting the IAS 37 decision tree, working a fresh long-term-contract example (Kennedy Construction), and drilling the pre- vs. post-IFRS 18 Cash Flow Statement presentation.</p>
+
+        <div class="subhead">Contingencies recap — 3 key IFRS/ASPE differences</div>
+        <div class="card">
+          <table>
+            <tr><th>Area</th><th>IFRS (IAS 37)</th><th>ASPE (3290)</th></tr>
+            <tr><td>Measurement of a provision</td><td>Best estimate of the expenditure required to settle the present obligation — may use expected value (probability-weighted) across a range of outcomes, or the most likely outcome</td><td>Similar best-estimate concept, but organized around the "measurement uncertainty" language of Section 3290; uses the likely/not-determinable/unlikely × measurable/not-measurable matrix (Week 4)</td></tr>
+            <tr><td>Contingent gains</td><td>Disclosed if probable; recognized only if virtually certain</td><td>Never accrued; disclosed only if likely to be confirmed by a future event</td></tr>
+            <tr><td>Terminology</td><td>"Provisions and Contingencies" (IAS 37)</td><td>"Contingencies" (Section 3290) — ASPE does not use a separate "provision" terminology/standard the way IFRS does, though the underlying recognition logic is conceptually similar</td></tr>
+          </table>
+        </div>
+
+        <div class="subhead">Worked example — Kennedy Construction Ltd. (KCL)</div>
+        <div class="card">
+          <p>KCL (TSX-listed) is awarded a <b>$40,000,000</b> fixed-price contract to build a large warehouse, commencing Jan 1, 20X1, expected completion end of 20X3. KCL manages the overall project (design, engineering, materials, labour, foundation, building construction, etc.) — the same reasoning as the hospital-contract example (Week 2): highly interdependent, integrated deliverables → <b>one performance obligation</b>.</p>
+          <p>IFRS 15 par. 35's second over-time criterion applies directly: KCL's performance creates/enhances an asset (the building, i.e. work-in-progress) that the <i>customer controls</i> as it's built → <b>revenue recognized over time</b>, using the input method (costs-to-cost), exactly like the KTI/Polarian and Sun Technology examples.</p>
+          <div class="callout exam"><b>Exam angle</b>Notice the repeating shape of every long-term-contract case in this course: (1) confirm one PO via the interdependence/integration argument, (2) confirm over-time recognition via the "customer controls the asset as it's created" or "no alternative use + enforceable right to payment" test, (3) apply the input-method percentage-of-completion formula, (4) check for an onerous-contract provision if total estimated costs now exceed the contract price. Master this shape and you can solve almost any long-term-contract PBL or exam question.</div>
+        </div>
+
+        <div class="subhead">Cash Flow Statement — IAS 7 before vs. after IFRS 18</div>
+        <div class="card">
+          <table>
+            <tr><th></th><th>Before IFRS 18 (current guidance)</th><th>After IFRS 18</th></tr>
+            <tr><td>Interest received</td><td>Policy choice: Operating <i>or</i> Investing</td><td>Standardized placement, tied to the new P&amp;L "Investing" category</td></tr>
+            <tr><td>Interest paid</td><td>Policy choice: Operating <i>or</i> Financing</td><td>Standardized placement, tied to the new P&amp;L "Financing" category</td></tr>
+            <tr><td>Dividends received</td><td>Policy choice: Operating <i>or</i> Investing</td><td>Standardized placement — Investing</td></tr>
+            <tr><td>Dividends paid</td><td>Policy choice: Operating <i>or</i> Financing</td><td>Standardized placement — Financing</td></tr>
+          </table>
+          <div class="callout def"><b>ASPE — Interest/Dividends Received/Paid (Pt II 1540)</b>No policy choice — ASPE has always used <b>fixed</b> classifications for these items (a simpler, less flexible model than pre-IFRS 18 IFRS, and one that IFRS 18 now moves closer to).</div>
+          <p><b>ASPE — Securities held for trading:</b> purchases/sales are classified as <b>operating</b> cash flows (not investing) when the securities are actively traded as part of the entity's normal operations — a specific carve-out worth remembering.</p>
+        </div>
+
+        <div class="subhead">Practice problems referenced (PB-46, PB-13, PB-14)</div>
+        <div class="card">
+          <p>The Week 13 deck works through several textbook-style Cash Flow Statement problems comparing "Assuming IFRS without IFRS 18," "Assuming IFRS with IFRS 18," and "Assuming ASPE" side by side for the same underlying transactions — reinforcing that the <i>economics</i> of a transaction never change between frameworks, only its <b>presentation</b> on the statement.</p>
+        </div>
+      </section>
+
+      <!-- ================= CASE: SUN TECHNOLOGY ================= -->
+      <section class="page" id="case-sun">
+        <div class="eyebrow">Week 4 PBL · Fully worked using the Problem-Solving Process</div>
+        <h1>Case Deep-Dive: Sun Technology Inc.</h1>
+        <p class="sub">A complete worked solution to the assigned PBL — a custom, over-time revenue recognition contract with progress billings, a full accounting-cycle journal entry set, and two years of Statement of Financial Position figures that tie out to the dollar.</p>
+
+        <div class="case-scenario">
+          <b>Scenario summary</b>
+          Sun Technology Inc. (STI) is a private Canadian solar panel manufacturer, planning to go public in 3–4 years and therefore preparing its financial statements under <b>IFRS</b>. STI designs, manufactures and installs fully customized solar panel arrays — design details are never sold separately, and STI only manufactures panels its own engineers designed and only installs its own branded panels. On June 30, 2024, STI signed a <b>$4,200,000</b> fixed-price contract with Vancouver Real Estate Ltd. (VRE) to design, manufacture and install solar panels across VRE's Vancouver office buildings, estimated to take one year. STI's colleague already confirmed Step 1 (contract criteria met) and Step 2 (<b>one</b> performance obligation, since design/manufacture/installation are highly integrated and not sold separately). Analysis begins at Step 3. STI uses the <b>input method</b> for over-time performance obligations.
+        </div>
+
+        <div class="subhead">Assess the Situation</div>
+        <div class="card">
+          <ul class="notes">
+            <li><b>Users:</b> internal audit/supervisor (immediate requester), future public-company investors and lenders (since STI is preparing IFRS statements ahead of a planned IPO in 3–4 years).</li>
+            <li><b>Framework:</b> IFRS — explicitly stated, even though STI is currently private, because the owners plan to go public within 3–4 years and have chosen to apply public-company standards now.</li>
+            <li><b>Industry/business model:</b> custom solar panel design, manufacture and installation — a single integrated service, since STI does not sell engineering/design separately from manufacturing, and only installs its own branded panels (supporting the "one performance obligation" conclusion already reached).</li>
+            <li><b>Materiality:</b> explicitly stated — all amounts are material to users.</li>
+            <li><b>Timeline:</b> Contract signed June 30, 2024 → Phase 1 (design) complete Sep 30, 2024 → initial billing Dec 1, 2024 ($1,200,000) → some panels manufactured/installed in 2024 → remaining panels manufactured/installed in 2025 → all panels installed by May 15, 2025 → final billing on completion → balance paid June 30, 2025.</li>
+          </ul>
+        </div>
+
+        <div class="subhead">Identify the Issue(s)</div>
+        <div class="card">
+          <p><b>Issue: Revenue recognition — transaction price, and timing/pattern of recognition for a single performance obligation satisfied over an 11-month period spanning two fiscal years.</b> Because the contract runs from June 2024 to May 2025 with actual costs that differ meaningfully from original estimates in both years, both the <i>timing</i> and the <i>amount</i> of revenue recognized in each year are financial reporting issues.</p>
+        </div>
+
+        <div class="subhead">Analyze the Issue(s)</div>
+        <div class="card">
+          <h3>Step 3 — Transaction Price</h3>
+          <p>Total contract price = <b>$4,200,000</b> (fixed price, no variable consideration described). <b>Significant financing component?</b> The gap between the initial billing (Dec 2024) and final payment (June 2025) reflects normal progress-billing practice for a ~1-year installation contract, not a financing arrangement — no separate interest is charged or implied, and the timing differences are consistent with typical construction-type payment terms. <b>Conclusion: no significant financing component; transaction price = $4,200,000.</b></p>
+
+          <h3 style="margin-top:14px;">Step 4 — Allocate the Transaction Price</h3>
+          <p>Not applicable — with only one performance obligation, the entire $4,200,000 transaction price is allocated to that single obligation.</p>
+
+          <h3 style="margin-top:14px;">Step 5 — Recognize Revenue: Over time, or point in time?</h3>
+          <ul class="notes">
+            <li>STI's performance does not create an asset with an alternative use to STI — the panels are custom-designed for VRE's specific buildings, and STI does not sell its designs or resell panels to other customers.</li>
+            <li>STI has an enforceable right to payment for performance completed to date — evidenced by the contractual progress-billing schedule (initial billing partway through the project, before full completion).</li>
+            <li><b>Conclusion: revenue is recognized over time</b>, consistent with STI's stated policy of using the input method for over-time performance obligations.</li>
+          </ul>
+
+          <h3 style="margin-top:14px;">Input-method revenue calculation</h3>
+          <div class="je">2024:
+  Actual costs incurred 2024
+    Phase 1 (design)          700,000
+    Phase 2 (manufacture)     797,000
+    Phase 3 (installation)    510,000
+    Total 2024 costs        2,007,000
+  Estimated costs to complete (per Dec 2024 estimate)     1,000,000
+  Total estimated contract costs                          3,007,000
+
+  % complete (2024) = 2,007,000 / 3,007,000 = 66.74%
+  Revenue 2024 = 66.74% x $4,200,000 = $2,803,259
+  Gross profit 2024 = 2,803,259 - 2,007,000 = $796,259
+
+2025 (contract completed):
+  Actual 2025 costs to complete                           1,300,000
+  Total ACTUAL costs (2,007,000 + 1,300,000)              3,307,000
+  Total actual contract profit (4,200,000 - 3,307,000)      893,000
+
+  Since the contract is 100% complete at year-end 2025:
+  Revenue 2025 = Total contract price - Revenue already recognized
+               = 4,200,000 - 2,803,259 = $1,396,741
+  Gross profit 2025 = 1,396,741 - 1,300,000 = $96,741
+
+  Check: 796,259 (2024) + 96,741 (2025) = $893,000 = total actual contract profit  [ties out]</div>
+
+          <div class="callout exam"><b>Reality check (per the Problem-Solving Process)</b>2025 actual costs to complete ($1,300,000) exceeded the December 2024 estimate ($1,000,000) by $300,000. This reduced total contract profit from the originally estimated $1,480,000 (at signing: $4,200,000 − $2,720,000) to an actual $893,000 — a meaningful decline, but STI still earned an overall profit on the contract, so <b>no onerous contract provision is required</b> at any point (total estimated/actual costs never exceeded the total contract price).</div>
+        </div>
+
+        <div class="subhead">Conclude, Justify &amp; Recommend — Journal Entries</div>
+        <div class="card">
+          <h3>2024</h3>
+          <div class="je">To record costs incurred (per case assumption, all paid in cash):
+  Construction in Progress (Contract Asset)   2,007,000
+      Cash                                              2,007,000
+
+To record the initial billing (Dec 1, 2024):
+  Accounts Receivable                         1,200,000
+      Billings on Construction in Progress               1,200,000
+  (Cash not received until Jan 5, 2025 - remains a receivable at 12/31/2024)
+
+To recognize revenue at year-end (input method):
+  Cost of Construction (Cost of Sales)        2,007,000
+  Construction in Progress (gross profit)       796,259
+      Revenue from Long-term Contract                    2,803,259</div>
+
+          <h3 style="margin-top:16px;">2025</h3>
+          <div class="je">To record collection of the 2024 billing (Jan 5, 2025):
+  Cash                                         1,200,000
+      Accounts Receivable                                1,200,000
+
+To record costs incurred (per case assumption, all paid in cash):
+  Construction in Progress (Contract Asset)   1,300,000
+      Cash                                              1,300,000
+
+To record the final billing on completion (balance = 4,200,000 - 1,200,000):
+  Accounts Receivable                         3,000,000
+      Billings on Construction in Progress               3,000,000
+
+To record collection of the final billing (June 30, 2025):
+  Cash                                         3,000,000
+      Accounts Receivable                                3,000,000
+
+To recognize the final year's revenue (input method, contract complete):
+  Cost of Construction (Cost of Sales)        1,300,000
+  Construction in Progress (gross profit)        96,741
+      Revenue from Long-term Contract                    1,396,741
+
+To close out the completed contract:
+  Billings on Construction in Progress        4,200,000
+      Construction in Progress                           4,200,000
+  (Total CIP = total Billings = total contract price of $4,200,000 - contract fully closed out)</div>
+        </div>
+
+        <div class="subhead">Statement of Financial Position</div>
+        <div class="card">
+          <p>Opening balances, Jan 1, 2024 (given): Cash $5,000,000; Common Shares $100,000; Retained Earnings $4,900,000.</p>
+          <table>
+            <tr><th></th><th class="num">Dec 31, 2024</th><th class="num">Dec 31, 2025</th></tr>
+            <tr><td><b>Assets</b></td><td></td><td></td></tr>
+            <tr><td>Cash</td><td class="num">$2,993,000</td><td class="num">$5,893,000</td></tr>
+            <tr><td>Accounts Receivable</td><td class="num">$1,200,000</td><td class="num">$0</td></tr>
+            <tr><td>Contract Asset (Construction in Progress net of Billings)</td><td class="num">$1,603,259</td><td class="num">$0</td></tr>
+            <tr><td><b>Total Assets</b></td><td class="num"><b>$5,796,259</b></td><td class="num"><b>$5,893,000</b></td></tr>
+            <tr><td><b>Equity</b></td><td></td><td></td></tr>
+            <tr><td>Common Shares</td><td class="num">$100,000</td><td class="num">$100,000</td></tr>
+            <tr><td>Retained Earnings</td><td class="num">$5,696,259</td><td class="num">$5,793,000</td></tr>
+            <tr><td><b>Total Equity</b></td><td class="num"><b>$5,796,259</b></td><td class="num"><b>$5,893,000</b></td></tr>
+          </table>
+          <p style="font-size:.82rem; color:var(--muted);">Workings: Cash 12/31/2024 = $5,000,000 opening − $2,007,000 costs paid = $2,993,000 (no collections yet — the $1.2M is only received Jan 5, 2025). Contract Asset 12/31/2024 = Construction in Progress balance ($2,803,259 = costs + gross profit recognized) − Billings ($1,200,000) = $1,603,259. Retained Earnings 12/31/2024 = $4,900,000 + Net Income 2024 ($796,259) = $5,696,259. Cash 12/31/2025 = $2,993,000 + collections ($1,200,000 + $3,000,000) − 2025 costs paid ($1,300,000) = $5,893,000. Retained Earnings 12/31/2025 = $5,696,259 + Net Income 2025 ($96,741) = $5,793,000. Total Assets = Total Equity in both years (no liabilities in this simplified scenario) — <b>the statement balances.</b></p>
+        </div>
+
+        <div class="subhead">Supervisor's question: recommend a different revenue recognition method?</div>
+        <div class="card">
+          <p>The supervisor asked whether a different method should be used for performance obligations where control transfers over time. This is a genuine judgement call with reasonable arguments on both sides:</p>
+          <div class="grid2">
+            <div><b style="color:var(--ifrs);">Case for keeping the input method</b>
+              <ul class="notes">
+                <li>Costs are objectively tracked and readily available from STI's own accounting records — reliable and verifiable.</li>
+                <li>Consistent with the "hold to collect" logic used across the course's other long-term-contract examples (KTI/Polarian, Kennedy Construction).</li>
+              </ul>
+            </div>
+            <div><b style="color:var(--aspe);">Case for an output method instead</b>
+              <ul class="notes">
+                <li>The case facts explicitly state: <i>"Once the panels are installed, they are functional and VRE is able to benefit from them"</i> — this directly ties customer benefit to <b>installation milestones</b>, not to cost inputs.</li>
+                <li>Phase 1 (design) ran <b>11% over budget</b> in 2024 ($700,000 actual vs. $630,000 estimated) — under the input method, this cost overrun <i>increases</i> revenue recognized without VRE receiving any additional value, since design activity alone provides VRE no functional benefit.</li>
+                <li>An output method based on buildings/panels actually installed and functional would more faithfully depict the transfer of control to VRE, consistent with IFRS 15's core objective.</li>
+              </ul>
+            </div>
+          </div>
+          <div class="callout exam"><b>Recommended conclusion</b>A reasonable recommendation is to consider an <b>output method</b> based on installed/functional capacity (e.g. % of buildings completed and energised) <i>if</i> that information can be obtained without undue cost — because it ties revenue recognition directly to the point the case says the customer actually benefits, and avoids the input method's exposure to distortion from cost inefficiency. The caveat: IFRS 15 permits output methods only when they can be applied without undue cost or effort, so this recommendation should be paired with a note that STI would need to confirm reliable, cost-effective tracking of installed capacity before switching methods.</div>
+        </div>
+      </section>
+
+      <!-- ================= IFRS vs ASPE ================= -->
+      <section class="page" id="ifrsaspe">
+        <div class="eyebrow">Consolidated reference — every IFRS/ASPE contrast in the course, in one place</div>
+        <h1>IFRS vs. ASPE Quick Reference</h1>
+        <p class="sub">Every PBL and exam question starts with "which standard applies?" — use this page to move fast once you've made that call.</p>
+
+        <div class="subhead">Revenue Recognition</div>
+        <div class="card">
+          <table>
+            <tr><th>Topic</th><th>IFRS 15</th><th>ASPE (1000 / relevant sections)</th></tr>
+            <tr><td>Core recognition trigger</td><td>Transfer of <b>control</b></td><td>Transfer of <b>risks and rewards</b></td></tr>
+            <tr><td>Model</td><td>5-step model (Contract → PO → Price → Allocate → Recognize)</td><td>4 criteria: Performed, Measurable, Collection reasonably assured, Risks/Rewards transferred</td></tr>
+            <tr><td>Significant financing component</td><td>Effective interest method required</td><td>Straight-line amortization permitted as an alternative</td></tr>
+            <tr><td>Over-time method choice (where estimable)</td><td>N/A — over-time criteria drive recognition directly</td><td>Percentage of completion (if estimable) vs. Completed contract (if not)</td></tr>
+            <tr><td>Onerous/expected contract losses</td><td>Recognize a provision under IAS 37 for the unavoidable excess cost</td><td>"Entire expected loss recognized as an expense immediately" once probable, regardless of % complete</td></tr>
+          </table>
+        </div>
+
+        <div class="subhead">Provisions &amp; Contingencies</div>
+        <div class="card">
+          <table>
+            <tr><th>Topic</th><th>IFRS (IAS 37)</th><th>ASPE (3290)</th></tr>
+            <tr><td>Provision recognition</td><td>Present obligation + probable outflow + reliable estimate</td><td>Same three-part logic, framed via a likely/not-determinable/unlikely × measurable/not-measurable matrix</td></tr>
+            <tr><td>Contingent liability</td><td>Disclose (not recognize) unless remote</td><td>Disclose if likely-but-not-measurable, or not-determinable — same general spirit</td></tr>
+            <tr><td>Contingent asset/gain</td><td>Disclose if probable; recognize only if virtually certain</td><td>Never accrued; disclose only if likely to be confirmed by a future event</td></tr>
+          </table>
+        </div>
+
+        <div class="subhead">Subsequent Events &amp; Accounting Changes</div>
+        <div class="card">
+          <table>
+            <tr><th>Topic</th><th>IFRS (IAS 10 / IAS 8)</th><th>ASPE</th></tr>
+            <tr><td>Adjusting vs. non-adjusting events</td><td>Same two-criteria test (occurs in subsequent period + evidence of a year-end condition)</td><td>Conceptually the same test, same terminology largely mirrored</td></tr>
+            <tr><td>Change in estimate</td><td>Prospective</td><td>Prospective (same)</td></tr>
+            <tr><td>Change in accounting policy</td><td>Retrospective</td><td>Retrospective (same)</td></tr>
+            <tr><td>Prior period error</td><td>Retrospective restatement</td><td>Retrospective restatement (same)</td></tr>
+          </table>
+        </div>
+
+        <div class="subhead">Financial Assets</div>
+        <div class="card">
+          <table>
+            <tr><th>Topic</th><th>IFRS 9</th><th>ASPE</th></tr>
+            <tr><td>Equity investment classification</td><td>FVPL (default) or FVOCI (irrevocable election) — never Amortized Cost</td><td>Fair value through net income (if actively traded) or cost less impairment (if not)</td></tr>
+            <tr><td>Debt investment classification</td><td>Business model (hold to collect / hold to collect &amp; sell / other) + SPPI test → Amortized Cost / FVOCI / FVPL</td><td>Simpler model — no formal SPPI/business-model test framework</td></tr>
+            <tr><td>FVOCI recycling on sale</td><td><b>Debt:</b> recycled to net income. <b>Equity:</b> never recycled.</td><td>No OCI equivalent for debt; N/A</td></tr>
+            <tr><td>Premium/discount amortization</td><td>Effective interest method required</td><td>Straight-line permitted as an alternative</td></tr>
+            <tr><td>Impairment model</td><td><b>Expected credit loss</b> — forward-looking, recognized before default</td><td><b>Incurred loss</b> — recognized only after objective evidence/a loss event</td></tr>
+            <tr><td>Significant influence investments</td><td>Equity method</td><td>Equity method (same general approach)</td></tr>
+          </table>
+        </div>
+
+        <div class="subhead">Intangibles, Goodwill &amp; Impairment</div>
+        <div class="card">
+          <table>
+            <tr><th>Topic</th><th>IFRS (IAS 38 / IAS 36)</th><th>ASPE (Pt II 3064)</th></tr>
+            <tr><td>Development-phase costs</td><td>Mandatory capitalization if all 6 criteria met</td><td>Accounting <b>policy choice</b> — expense as incurred, or capitalize if similar criteria met</td></tr>
+            <tr><td>Indefinite-life intangibles</td><td>Not amortized; tested for impairment at least annually</td><td>ASPE generally presumes finite life is more common in private-enterprise contexts, but the same not-amortized/annual-test logic applies where indefinite life is appropriate</td></tr>
+            <tr><td>Impairment test</td><td><b>One-step:</b> carrying amount vs. recoverable amount (higher of FV less costs to sell, and value in use)</td><td><b>Two-step:</b> (1) recoverability test using <i>undiscounted</i> cash flows, (2) if failed, measure loss as carrying amount less fair value</td></tr>
+            <tr><td>Impairment reversal</td><td>Permitted (except goodwill)</td><td><b>Never permitted</b>, including for goodwill</td></tr>
+            <tr><td>Goodwill</td><td>Only recognized in a business combination; never amortized; tested annually; impairment never reversed</td><td>Same core principles</td></tr>
+          </table>
+        </div>
+
+        <div class="subhead">Cash Flow Statement (IAS 7 / Pt II 1540)</div>
+        <div class="card">
+          <table>
+            <tr><th>Item</th><th>IFRS — pre-IFRS 18</th><th>IFRS — post-IFRS 18</th><th>ASPE</th></tr>
+            <tr><td>Interest received</td><td>Policy choice (Operating or Investing)</td><td>Standardized (tied to Investing category)</td><td>Fixed classification</td></tr>
+            <tr><td>Interest paid</td><td>Policy choice (Operating or Financing)</td><td>Standardized (tied to Financing category)</td><td>Fixed classification</td></tr>
+            <tr><td>Dividends received</td><td>Policy choice (Operating or Investing)</td><td>Standardized (Investing)</td><td>Fixed classification</td></tr>
+            <tr><td>Dividends paid</td><td>Policy choice (Operating or Financing)</td><td>Standardized (Financing)</td><td>Fixed classification</td></tr>
+            <tr><td>Purchase/sale of investments</td><td colspan="2">Investing</td><td>Investing (except securities held for trading → Operating)</td></tr>
+          </table>
+        </div>
+      </section>
+
+      <!-- ================= PRACTICE PBL EXAM ================= -->
+      <section class="page" id="practiceexam">
+        <div class="eyebrow">Self-graded practice paper · same case-based format as the midterms &amp; final</div>
+        <h1>Practice PBL Exam</h1>
+        <p class="sub">A brand-new case, built in exactly the same shape as the Sun Technology Inc. PBL. Work through the Problem-Solving Process yourself first, then reveal each stage's model answer to self-grade.</p>
+
+        <div class="case-scenario">
+          <b>Scenario — BrightGrid Charging Solutions Inc. (BCS)</b>
+          BrightGrid Charging Solutions Inc. (BCS) is a Canadian designer, manufacturer and installer of commercial EV charging station networks, owned by three private investors. BCS plans to take the company public in approximately three years, and has therefore chosen to prepare its financial statements applying <b>IFRS</b>. BCS has a December 31st year-end. It is January 20, 2026, and you are a co-op student on the financial reporting team reviewing a contract for the 2025 year-end financial statements.<br><br>
+          For all charging-station contracts, BCS staff meet with the client to assess electrical capacity, traffic patterns, and site layout, then BCS's engineering team designs a customized charging station array for the specific site (unit count, power output, mounting/wiring configuration). BCS does not sell site-assessment or design services separately from manufacturing, and only BCS-certified technicians may install BCS-branded charging hardware (a manufacturer warranty condition).<br><br>
+          On April 1, 2024, BCS signed a contract with Meridian Property Group to design, manufacture and install EV charging stations across five parking facilities. At signing, the project was estimated to take about 14 months. The total contract price is <b>$2,850,000</b>.<br><br>
+          <b>Estimated costs at signing:</b><br>
+          Phase 1 (site assessment &amp; design): $270,000 · Phase 2 (manufacture charging units): $960,000 · Phase 3 (installation &amp; commissioning): $570,000 · <b>Total estimated costs: $1,800,000</b><br><br>
+          Phase 1 was completed by June 30, 2024; actual Phase 1 costs incurred during 2024 were <b>$300,000</b>. Several facilities' charging stations were manufactured and installed during 2024 — once installed, a station is functional and Meridian can begin using it immediately. Actual 2024 manufacturing costs were <b>$410,000</b> and actual 2024 installation costs were <b>$260,000</b>. At December 31, 2024, BCS estimated the remaining cost to complete the contract at <b>$650,000</b>. The remaining stations were manufactured and installed in 2025; actual 2025 costs to complete were <b>$700,000</b>. All charging stations were installed and operational by May 31, 2025.<br><br>
+          <b>Payment terms:</b> an initial billing of $900,000 on November 1, 2024, with the balance billed on completion of the project; payment due within 30 days of billing. The $900,000 was paid by Meridian on November 25, 2024, and the balance was paid on June 20, 2025.<br><br>
+          <b>Other information:</b> BCS uses the input method of costs to recognize performance obligations where transfer of control is over time. Assume opening balances at 1/1/2024 of Cash $3,000,000, Common Shares $50,000, Retained Earnings $2,950,000, and that the only transactions during 2024–2025 relate to this contract (all costs paid in cash during the year incurred). Your colleague has already confirmed Step 1 (contract criteria met) and Step 2 (one distinct performance obligation) — begin your analysis at Step 3, assuming one performance obligation. All amounts are material.
+        </div>
+
+        <div class="section-band">
+          <span class="sname">Required</span>
+          <span class="smeta">Apply the Problem-Solving Process</span>
+        </div>
+        <p class="sub" style="margin-bottom:14px;">Work through all four stages yourself — Assess the Situation, Identify the Issue(s), Analyze the Issue(s) (Steps 3–5 of IFRS 15), and Conclude/Justify/Recommend (journal entries + a 12/31/2024 and 12/31/2025 Statement of Financial Position). Your supervisor also wants to know whether you'd recommend a different revenue recognition method. Reveal each section below to self-grade.</p>
+
+        <div class="saq-block">
+          <div class="saq-q">1. Assess the Situation</div>
+          <div class="saq-pts">Identify users, framework, industry/business model, and build the timeline</div>
+          <textarea class="saq-input" placeholder="Write your answer here (not saved — for your own practice only)..."></textarea>
+          <button class="reveal-btn" onclick="this.nextElementSibling.classList.toggle('show')">Show model answer</button>
+          <div class="model-answer"><b>Model answer</b><b>Users:</b> the internal supervisor (immediate requester); future public-market investors/lenders, since BCS plans an IPO in ~3 years and is applying IFRS ahead of that milestone. <b>Framework:</b> IFRS, explicitly stated — BCS is private today but preparing IFRS statements in anticipation of going public, the same logic as Sun Technology Inc. <b>Business model:</b> BCS designs, manufactures and installs customized EV charging hardware as one integrated offering — design isn't sold separately, and only BCS-certified technicians can install BCS-branded hardware, supporting a single-performance-obligation conclusion (already given). <b>Materiality:</b> explicitly stated as material. <b>Timeline:</b> contract signed Apr 1, 2024 → Phase 1 complete Jun 30, 2024 → some stations installed/functional during 2024 → initial billing Nov 1, 2024 ($900,000), collected Nov 25, 2024 → remaining stations installed by May 31, 2025 → final billing on completion, collected Jun 20, 2025.</div>
+        </div>
+
+        <div class="saq-block">
+          <div class="saq-q">2. Identify the Issue(s)</div>
+          <div class="saq-pts">State the issue and tie it to specific case facts</div>
+          <textarea class="saq-input" placeholder="Write your answer here (not saved — for your own practice only)..."></textarea>
+          <button class="reveal-btn" onclick="this.nextElementSibling.classList.toggle('show')">Show model answer</button>
+          <div class="model-answer"><b>Model answer</b>Revenue recognition — determining the transaction price and the timing/pattern of revenue recognition for a single performance obligation satisfied over a period spanning two fiscal years (Apr 2024 – May 2025), where actual costs incurred differ from original estimates in both years, affecting both the amount and timing of revenue recognized in each period.</div>
+        </div>
+
+        <div class="saq-block">
+          <div class="saq-q">3. Analyze — Steps 3, 4 &amp; 5 of IFRS 15</div>
+          <div class="saq-pts">Transaction price, allocation, and over-time vs. point-in-time — with full revenue/gross profit calculations for 2024 and 2025</div>
+          <textarea class="saq-input" placeholder="Write your answer here (not saved — for your own practice only)..."></textarea>
+          <button class="reveal-btn" onclick="this.nextElementSibling.classList.toggle('show')">Show model answer</button>
+          <div class="model-answer"><b>Model answer</b>
+          <b>Step 3 — Transaction Price:</b> $2,850,000 fixed price. No significant financing component — the gap between initial billing and final payment reflects normal progress-billing practice for a ~14-month installation contract, with no interest charged or implied.<br>
+          <b>Step 4 — Allocate:</b> not applicable (one PO) — full $2,850,000 allocated to the single performance obligation.<br>
+          <b>Step 5 — Over time vs. point in time:</b> the charging stations are custom-designed for Meridian's specific sites with no alternative use to BCS, and BCS has an enforceable right to payment for work completed to date (evidenced by the progress-billing schedule) → <b>recognize over time</b>, using BCS's stated input method.
+          <div class="je">2024:
+  Actual 2024 costs: 300,000 + 410,000 + 260,000 = 970,000
+  Estimated costs to complete (Dec 2024 estimate):    650,000
+  Total estimated contract costs:                   1,620,000
+  % complete = 970,000 / 1,620,000 = 59.88%
+  Revenue 2024 = 59.88% x 2,850,000 = $1,706,481
+  Gross profit 2024 = 1,706,481 - 970,000 = $736,481
+
+2025 (contract completed):
+  Actual 2025 costs to complete:                      700,000
+  Total actual costs (970,000 + 700,000):           1,670,000
+  Total actual contract profit (2,850,000-1,670,000): 1,180,000
+  Revenue 2025 = 2,850,000 - 1,706,481 = $1,143,519
+  Gross profit 2025 = 1,143,519 - 700,000 = $443,519
+  Check: 736,481 + 443,519 = $1,180,000 = total actual contract profit  [ties out]</div>
+          No onerous contract provision required in either year — actual/estimated total costs never exceeded the total contract price.</div>
+        </div>
+
+        <div class="saq-block">
+          <div class="saq-q">4. Conclude, Justify &amp; Recommend — Journal Entries</div>
+          <div class="saq-pts">2024 and 2025 journal entries</div>
+          <textarea class="saq-input" placeholder="Write your answer here (not saved — for your own practice only)..."></textarea>
+          <button class="reveal-btn" onclick="this.nextElementSibling.classList.toggle('show')">Show model answer</button>
+          <div class="model-answer"><b>Model answer</b>
+          <div class="je">2024:
+  Construction in Progress          970,000
+      Cash                                     970,000
+
+  Accounts Receivable               900,000
+      Billings on Construction in Progress     900,000
+  (Nov 1, 2024)
+
+  Cash                               900,000
+      Accounts Receivable                      900,000
+  (Nov 25, 2024 - collected same year)
+
+  Cost of Construction              970,000
+  Construction in Progress          736,481
+      Revenue from Long-term Contract          1,706,481
+
+2025:
+  Construction in Progress          700,000
+      Cash                                     700,000
+
+  Accounts Receivable              1,950,000
+      Billings on Construction in Progress   1,950,000
+  (balance = 2,850,000 - 900,000, billed on completion May 31, 2025)
+
+  Cash                              1,950,000
+      Accounts Receivable                    1,950,000
+  (June 20, 2025)
+
+  Cost of Construction              700,000
+  Construction in Progress          443,519
+      Revenue from Long-term Contract          1,143,519
+
+  Billings on Construction in Progress  2,850,000
+      Construction in Progress                 2,850,000
+  (close out completed contract)</div>
+          </div>
+        </div>
+
+        <div class="saq-block">
+          <div class="saq-q">5. Statement of Financial Position — Dec 31, 2024 &amp; Dec 31, 2025</div>
+          <div class="saq-pts">Using the given opening balances</div>
+          <textarea class="saq-input" placeholder="Write your answer here (not saved — for your own practice only)..."></textarea>
+          <button class="reveal-btn" onclick="this.nextElementSibling.classList.toggle('show')">Show model answer</button>
+          <div class="model-answer"><b>Model answer</b>
+          <table style="margin-top:4px;">
+            <tr><th></th><th class="num">Dec 31, 2024</th><th class="num">Dec 31, 2025</th></tr>
+            <tr><td>Cash</td><td class="num">$2,930,000</td><td class="num">$4,180,000</td></tr>
+            <tr><td>Accounts Receivable</td><td class="num">$0</td><td class="num">$0</td></tr>
+            <tr><td>Contract Asset</td><td class="num">$806,481</td><td class="num">$0</td></tr>
+            <tr><td><b>Total Assets</b></td><td class="num"><b>$3,736,481</b></td><td class="num"><b>$4,180,000</b></td></tr>
+            <tr><td>Common Shares</td><td class="num">$50,000</td><td class="num">$50,000</td></tr>
+            <tr><td>Retained Earnings</td><td class="num">$3,686,481</td><td class="num">$4,130,000</td></tr>
+            <tr><td><b>Total Equity</b></td><td class="num"><b>$3,736,481</b></td><td class="num"><b>$4,180,000</b></td></tr>
+          </table>
+          <p style="margin-top:8px;">Workings: Cash 12/31/2024 = $3,000,000 − $970,000 costs + $900,000 collected = $2,930,000. Contract Asset = $1,706,481 (CIP) − $900,000 (billings) = $806,481. Retained Earnings 12/31/2024 = $2,950,000 + $736,481 = $3,686,481. Cash 12/31/2025 = $2,930,000 − $700,000 + $1,950,000 = $4,180,000. Retained Earnings 12/31/2025 = $3,686,481 + $443,519 = $4,130,000. Total Assets = Total Equity in both years — the statement balances.</p>
+          </div>
+        </div>
+
+        <div class="saq-block">
+          <div class="saq-q">6. Supervisor's question: would you recommend a different revenue recognition method?</div>
+          <div class="saq-pts">Judgement question — argue both sides, reach a conclusion</div>
+          <textarea class="saq-input" placeholder="Write your answer here (not saved — for your own practice only)..."></textarea>
+          <button class="reveal-btn" onclick="this.nextElementSibling.classList.toggle('show')">Show model answer</button>
+          <div class="model-answer"><b>Model answer</b><b>For keeping the input method:</b> costs are objectively tracked in BCS's own accounting records — reliable and verifiable, and consistent with the treatment used across the course's other long-term-contract examples. <b>For an output method instead:</b> the case states a station is "functional" and Meridian "can begin using it immediately" once installed — tying customer benefit directly to <i>installation</i>, not cost inputs. Design (Phase 1) ran 11% over budget in 2024 ($300,000 actual vs. $270,000 estimated); under the input method this cost overrun increases recognized revenue even though design activity alone delivers Meridian no functional benefit. <b>Recommended conclusion:</b> consider an output method based on the number/capacity of stations actually installed and operational, since it ties revenue recognition to the point the case identifies as when the customer benefits — provided that information can be reliably tracked without undue cost, per IFRS 15's practicality constraint on output methods.</div>
+        </div>
+
+        <div class="footer-note">This is a self-graded original practice case for personal study use — it is not an official course document, and its facts and figures do not correspond to any real BCS entity. Use it to rehearse the Problem-Solving Process end-to-end, not as a substitute for your assigned PBLs.</div>
+      </section>
+
+      <!-- ================= FLASHCARDS ================= -->
+      <section class="page" id="flashcards">
+        <div class="eyebrow">Self-test</div>
+        <h1>Flashcard Review</h1>
+        <p class="sub">Click a card to flip it. Pick a deck below, or study everything at once.</p>
+
+        <div class="deck-select" id="deckSelect"></div>
+
+        <div class="flash-wrap">
+          <div class="flash-progress">
+            <span id="deckName">All decks</span>
+            <span id="cardCount">1 / 1</span>
+          </div>
+          <div class="flashcard" id="flashcard">
+            <span class="side-lbl">Question</span>
+            <div id="flashText">Loading…</div>
+          </div>
+          <div class="flash-controls">
+            <button class="btn ghost" id="prevBtn">← Prev</button>
+            <button class="btn primary" id="flipBtn">Flip</button>
+            <button class="btn ghost" id="nextBtn">Next →</button>
+          </div>
+          <div style="margin-top:10px; text-align:center;">
+            <button class="btn ghost" id="shuffleBtn">🔀 Shuffle</button>
+          </div>
+        </div>
+      </section>
+
+      <div class="footer-note">Compiled study companion for AFM 291 — Intermediate Financial Reporting (Spring 2026), University of Waterloo, taught by Donna Psutka. Sourced from the weekly lecture decks, PBL pre-lecture decks, the "Problem-Solving Process for AFM 291" handout, and the assigned Sun Technology Inc. PBL. Not an official course document — always check LEARN for authoritative content.</div>
+
+    </div>
+  </main>
+</div>
+
+<script>
+  // ---------- Navigation ----------
+  const navBtns = document.querySelectorAll('.nav-btn');
+  const pages = document.querySelectorAll('.page');
+  navBtns.forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      navBtns.forEach(b=>b.classList.remove('active'));
+      btn.classList.add('active');
+      pages.forEach(p=>p.classList.remove('active'));
+      document.getElementById(btn.dataset.page).classList.add('active');
+      document.querySelector('.content').scrollTo(0,0);
+      window.scrollTo(0,0);
+      if(btn.dataset.page === 'flashcards') initDeckUI();
+    });
+  });
+
+  // ---------- Search ----------
+  const searchBox = document.getElementById('searchBox');
+  searchBox.addEventListener('keydown', (e)=>{
+    if(e.key === 'Enter'){
+      const q = searchBox.value.trim().toLowerCase();
+      if(!q) return;
+      document.querySelectorAll('mark').forEach(m=>{ m.outerHTML = m.innerHTML; });
+      let firstMatch = null;
+      pages.forEach(page=>{
+        const walker = document.createTreeWalker(page, NodeFilter.SHOW_TEXT, null);
+        let node;
+        const toWrap = [];
+        while(node = walker.nextNode()){
+          if(node.parentElement.tagName === 'SCRIPT') continue;
+          const text = node.nodeValue;
+          const idx = text.toLowerCase().indexOf(q);
+          if(idx !== -1){ toWrap.push(node); }
+        }
+        toWrap.forEach(node=>{
+          const text = node.nodeValue;
+          const idx = text.toLowerCase().indexOf(q);
+          const span = document.createElement('span');
+          span.innerHTML = text.slice(0,idx) + '<mark>' + text.slice(idx, idx+q.length) + '</mark>' + text.slice(idx+q.length);
+          node.parentNode.replaceChild(span, node);
+          if(!firstMatch) firstMatch = {span, page};
+        });
+      });
+      if(firstMatch){
+        navBtns.forEach(b=>b.classList.remove('active'));
+        const targetBtn = document.querySelector(`.nav-btn[data-page="${firstMatch.page.id}"]`);
+        if(targetBtn) targetBtn.classList.add('active');
+        pages.forEach(p=>p.classList.remove('active'));
+        firstMatch.page.classList.add('active');
+        setTimeout(()=>{ firstMatch.span.scrollIntoView({behavior:'smooth', block:'center'}); }, 60);
+      }
+    }
+  });
+
+  // ---------- Flashcards ----------
+  const decks = {
+    "Problem-Solving Process": [
+      ["Name the four stages of the AFM 291 Problem-Solving Process, in order.", "1) Assess the Situation, 2) Identify the Issue(s), 3) Analyze the Issue(s), 4) Conclude, Justify and Recommend."],
+      ["What's the difference between 'Conclude' and 'Recommend'?", "Conclude is a comment (your accounting position and why); Recommend is an action (the specific journal entry, disclosure, or presentation change)."],
+      ["In 'Assess the Situation,' what four things must you identify about the users?", "Who are the key users of the financial statements? Who requested the information? What have they specifically asked you to do? (Plus: what's their objective?)"],
+      ["What four contextual factors does 'Assess the Situation' step 3 ask you to consider?", "Whether the entity is publicly traded (IFRS) or private (ASPE); the entity's industry/business model; whether there's bias toward a preferred treatment; and materiality."],
+      ["When analyzing an issue, what should you do if no specific accounting standard applies?", "Apply the Conceptual Framework directly to support your analysis."]
+    ],
+    "Week 1": [
+      ["Define information asymmetry.", "A condition in which some people have more information than others; accounting exists to transmit information from those who have it to those who need it."],
+      ["Per the IFRS/ASPE 'Who, How, What' framework, who are financial statements for?", "Existing and potential investors, lenders and other creditors ('users')."],
+      ["What are the two fundamental qualitative characteristics under IFRS?", "Relevance and Faithful Representation."],
+      ["What is the ASPE equivalent of IFRS's 'Faithful Representation'?", "Reliability (representational faithfulness, verifiability, neutrality, conservatism)."],
+      ["What are the three IFRS asset-definition criteria?", "A present economic resource (a right with potential to produce economic benefits); controlled by the entity; as a result of past events."],
+      ["Define earnings management.", "The active manipulation of accounting information to create an altered impression of the firm's financial performance, as measured by its earnings — operates through judgement and estimates in accruals/deferrals."],
+      ["What are non-GAAP measures, and give two examples.", "Financial measures reported outside the financial statements (press releases, MD&A), not defined by IFRS/ASPE — e.g. EBITDA, Adjusted EBIT, Free Cash Flow."]
+    ],
+    "Week 2": [
+      ["List the five steps of the IFRS 15 revenue recognition model.", "1) Identify the Contract, 2) Identify the Performance Obligation(s), 3) Determine the Transaction Price, 4) Allocate the Transaction Price, 5) Recognize Revenue."],
+      ["What are ASPE's four revenue recognition criteria (no 5-step model)?", "Performed, Measurable, Collection reasonably assured, Risks and rewards transferred."],
+      ["What's the core recognition trigger difference between IFRS and ASPE revenue recognition?", "IFRS = transfer of control; ASPE = transfer of risks and rewards."],
+      ["What are the two tests for a performance obligation to be 'distinct'?", "Capable of being distinct (can the customer benefit from it alone or with readily available resources?) AND distinct within the context of the contract (separately identifiable, not highly integrated/interdependent)."],
+      ["In the Equipment Ltd. example, how is the $1,000,000 price allocated between the $750,000 packaging machine and $325,000 forklift?", "Based on relative stand-alone selling prices: 69.77% ($697,674) to the machine, 30.23% ($302,326) to the forklift."],
+      ["List the three over-time revenue recognition criteria (IFRS 15 par. 35) — only one needs to be met.", "(1) Customer simultaneously receives and consumes benefits as the entity performs; (2) entity's performance creates/enhances an asset the customer controls as it's created; (3) no alternative use to the entity AND an enforceable right to payment for performance completed to date."],
+      ["In the Barnett Corp. example, why is $180,000 of total cash NOT all recorded as revenue?", "A significant financing component exists (9% interest, deferred payments) — revenue is recorded at the cash-equivalent price ($149,588.80), with the remainder ($30,411.20) recognized as interest income over time."]
+    ],
+    "Week 3": [
+      ["How is an assurance-type warranty accounted for?", "As a provision (warranty liability/expense) under IAS 37 — it is NOT a separate performance obligation."],
+      ["What are ASPE's two options for over-time long-term contract revenue, and when is each used?", "Percentage of completion (if progress can be reasonably estimated) vs. Completed contract (if it cannot)."],
+      ["Distinguish the input method from the output method for measuring progress.", "Input method = costs incurred to date / total expected costs (measures effort/inputs). Output method = directly measures value transferred to the customer (units delivered, milestones, surveys)."],
+      ["Why can a cost overrun distort revenue recognized under the input method?", "It increases the percentage-complete calculation without necessarily reflecting more value actually delivered to the customer."]
+    ],
+    "Week 4": [
+      ["Define an onerous contract (IAS 37).", "A contract in which the unavoidable cost of meeting the obligations exceeds the economic benefits expected to be received under it."],
+      ["Under ASPE, when must an expected contract loss be recognized?", "Immediately, in full, once it is probable that total contract costs will exceed total contract revenue — regardless of % complete or whether work has begun."],
+      ["List the three criteria for recognizing a provision under IAS 37.", "Present obligation from an obligating event; probable outflow of economic resources; reliable estimate."],
+      ["What's the difference between a provision and a contingent liability?", "A provision meets the full liability recognition criteria and is recognized on the Statement of Financial Position; a contingent liability does not, and is disclosed in notes only (unless remote)."],
+      ["Under IFRS, when is a contingent asset recognized rather than just disclosed?", "Only when the inflow of economic benefits is virtually certain — otherwise it's disclosed (if probable) or not mentioned (if less than probable)."],
+      ["What does ASPE say about contingent gains?", "They are never accrued in financial statements; disclosed in notes only when it is likely a future event will confirm the gain."],
+      ["What is a 'constructive obligation,' and give the example used in lecture.", "An obligation created by an entity's own established pattern of practice/published policy, not by law — e.g. an oil company with a published clean-up policy and track record of honouring it, even with no legal requirement to clean up contamination."]
+    ],
+    "Week 5": [
+      ["What are the two criteria for an 'adjusting event' under IAS 10?", "(1) It occurs during the subsequent-events period, AND (2) it provides evidence of conditions that existed at the end of the reporting period."],
+      ["What's the accounting treatment for a change in estimate vs. a change in accounting policy?", "Change in estimate = prospective (forward only). Change in accounting policy = retrospective (restate prior periods)."],
+      ["How are prior period errors accounted for?", "Retrospectively — restated as if the error had never occurred, adjusting OPENING retained earnings of the earliest period presented."],
+      ["When is a voluntary change in accounting policy permitted?", "Only when the change provides information that is more reliable and relevant to users."],
+      ["In the Blue Sky Ltd. patent example, why was the change in useful life a 'change in estimate' and not a policy change?", "It resulted from new information (2025 technology developments) changing the assessment of the asset's remaining useful life — a monetary amount subject to measurement uncertainty, which is the definition of an accounting estimate."]
+    ],
+    "Week 7": [
+      ["What ownership/influence level typically triggers the equity method?", "Significant influence — typically 20-50% ownership, or demonstrated actual influence (e.g. board seat, participation in policy decisions) regardless of exact %."],
+      ["Under IFRS 9, what are the two classification options for an equity investment, and which is the default?", "FVPL (default) or FVOCI (irrevocable election at initial recognition). Amortized Cost is never available for equity."],
+      ["What's the key difference in how dividends are treated between FVPL and FVOCI equity investments?", "Both recognize dividends as Dividend Income in net income — the FVOCI election only affects HOLDING gains/losses, which go to OCI instead of net income."],
+      ["Do FVOCI equity holding gains/losses ever get recycled to net income on sale?", "No — never, under IFRS 9. (Contrast with FVOCI debt, which does recycle — see Week 8.)"],
+      ["Under the equity method, how are dividends received treated?", "As a reduction of the investment carrying amount (a return OF the investment), not as investment income."]
+    ],
+    "Week 8": [
+      ["What two-part test does IFRS 9 use to classify debt investments?", "(a) the entity's business model for managing the asset, AND (b) the contractual cash flow characteristics (SPPI test)."],
+      ["What does SPPI stand for, and what does it test?", "Solely Payments of Principal and Interest — tests whether the contractual cash flows are simple debt-like payments (as opposed to more complex/equity-like features)."],
+      ["What business model supports Amortized Cost classification? What about FVOCI?", "Amortized Cost = 'hold to collect' contractual cash flows. FVOCI = 'hold to collect AND sell.'"],
+      ["Does FVOCI for debt investments recycle OCI gains/losses to net income on sale?", "Yes — unlike equity FVOCI, debt FVOCI gains/losses are reclassified ('recycled') out of OCI into net income upon derecognition."],
+      ["Compare ASPE's impairment model to IFRS 9's for financial assets.", "ASPE uses an incurred loss model (reactive — recognized only after objective evidence/a loss event). IFRS 9 uses an expected credit loss model (forward-looking — recognized before an actual default, based on estimated future losses)."],
+      ["What IFRS 9 concept triggers a move from 12-month to lifetime expected credit losses?", "A significant increase in credit risk since initial recognition."],
+      ["What's IFRS 18's core change to Cash Flow Statement presentation of interest/dividends?", "It removes the pre-IFRS 18 policy choice (Operating vs. Investing/Financing) and standardizes placement, tied to new defined P&L categories."]
+    ],
+    "Week 11": [
+      ["List the six IAS 38 criteria for capitalizing development-phase costs (all must be met).", "Technical feasibility; intention to complete and use/sell; ability to use/sell; how it will generate probable future economic benefits; availability of adequate resources; ability to reliably measure the expenditure."],
+      ["How are research-phase costs treated, under both IFRS and ASPE?", "Always expensed as incurred — too uncertain to capitalize."],
+      ["What's ASPE's key difference from IFRS on development-phase costs?", "ASPE offers a policy CHOICE to expense or capitalize (if criteria met); IFRS requires mandatory capitalization once all six criteria are met."],
+      ["When is goodwill recognized as an asset?", "Only when acquired as part of a business combination — internally generated goodwill is never recognized under either framework."],
+      ["How is goodwill subsequently measured?", "Never amortized; tested for impairment at least annually; impairment losses on goodwill are never reversed."],
+      ["In the Phobia Pharmaceuticals (PPI) example, why was the February market research expensed rather than capitalized?", "Technical feasibility of the drug hadn't yet been established at that point — it precedes the point all six IAS 38 criteria are met."],
+      ["Are sales-force training costs ever capitalized as part of an intangible asset's cost?", "No — selling/training costs are never capitalized, even after all six development criteria are otherwise met."]
+    ],
+    "Week 12": [
+      ["When must indefinite-life intangibles and goodwill be tested for impairment?", "At least annually, regardless of whether indicators of impairment exist."],
+      ["When must finite-life assets be tested for impairment?", "Only if indicators of impairment exist."],
+      ["Define a Cash-Generating Unit (CGU).", "The smallest identifiable group of assets that generates cash inflows largely independent of the cash inflows from other assets or groups of assets."],
+      ["Describe IFRS's one-step impairment test.", "Compare carrying amount to recoverable amount = the HIGHER of (a) fair value less costs to sell, and (b) value in use (PV of future cash flows). If carrying amount exceeds recoverable amount, the difference is the impairment loss."],
+      ["Describe ASPE's two-step impairment test.", "Step 1 (recoverability): compare carrying amount to UNDISCOUNTED future cash flows — if carrying amount is less, stop, no impairment. Step 2 (measurement, only if Step 1 fails): loss = carrying amount less fair value."],
+      ["How is an impairment loss allocated across a CGU containing goodwill and other assets?", "First fully write off any goodwill in the CGU, then allocate any remaining loss pro-rata across the other assets based on relative carrying amounts."],
+      ["Compare impairment reversal rules: IFRS vs. ASPE.", "IFRS permits reversal for assets other than goodwill (up to the carrying amount that would have existed with no prior impairment). ASPE never permits reversal for any long-lived asset, including goodwill."]
+    ],
+    "Week 13": [
+      ["In the Kennedy Construction Ltd. example, why is there only one performance obligation for a $40M warehouse build?", "The many goods/services (design, engineering, materials, labour, foundation, construction) are highly interdependent and integrated into one overall deliverable — not distinct within the context of the contract, same reasoning as the hospital-contract example."],
+      ["What is the four-part repeating pattern for solving any long-term-contract case in this course?", "(1) Confirm one PO via the interdependence/integration argument; (2) confirm over-time recognition; (3) apply the input-method % complete formula; (4) check for an onerous-contract provision."],
+      ["Under ASPE, how are purchases/sales of securities held for trading classified on the Cash Flow Statement?", "Operating activities (a specific carve-out from the general rule that investment purchases/sales are Investing activities)."],
+      ["What is the single biggest structural change IFRS 18 makes to the Cash Flow Statement?", "It removes the policy choice for where interest/dividends received and paid appear (previously Operating vs. Investing/Financing under IFRS) and standardizes their placement using new defined P&L categories."]
+    ],
+    "IFRS vs ASPE": [
+      ["Revenue: what's the core recognition trigger under each framework?", "IFRS = transfer of control. ASPE = transfer of risks and rewards."],
+      ["Contingent gains: IFRS vs. ASPE?", "IFRS: disclose if probable, recognize only if virtually certain. ASPE: never accrued; disclosed only if likely to be confirmed by a future event."],
+      ["Financial asset impairment: IFRS vs. ASPE?", "IFRS 9 = expected credit loss (forward-looking). ASPE = incurred loss (reactive, requires objective evidence/a loss event)."],
+      ["Development-phase intangible costs: IFRS vs. ASPE?", "IFRS: mandatory capitalization if all 6 criteria met. ASPE: policy CHOICE to expense or capitalize if criteria met."],
+      ["Impairment testing structure: IFRS vs. ASPE?", "IFRS: one-step (carrying amount vs. recoverable amount = higher of FV less costs to sell / value in use). ASPE: two-step (undiscounted recoverability test, then fair-value-based measurement if it fails)."],
+      ["Impairment reversal: IFRS vs. ASPE?", "IFRS: permitted except for goodwill. ASPE: never permitted, for any asset including goodwill."],
+      ["FVOCI recycling: debt vs. equity, under IFRS 9?", "Debt FVOCI: recycled to net income on sale. Equity FVOCI: never recycled."],
+      ["Premium/discount amortization method: IFRS vs. ASPE?", "IFRS: effective interest method required. ASPE: straight-line permitted as an alternative."],
+      ["Cash Flow Statement interest/dividends placement: IFRS pre-18 vs. ASPE?", "IFRS pre-IFRS 18: policy choice (Operating vs. Investing/Financing). ASPE: always fixed classification, no choice."]
+    ]
+  };
+
+  let activeDeckName = "All";
+  let cards = [];
+  let idx = 0;
+  let flipped = false;
+
+  function buildDeckList(){
+    const wrap = document.getElementById('deckSelect');
+    wrap.innerHTML = '';
+    const allChip = document.createElement('div');
+    allChip.className = 'chip active';
+    allChip.textContent = 'All decks';
+    allChip.onclick = ()=> selectDeck('All');
+    wrap.appendChild(allChip);
+    Object.keys(decks).forEach(name=>{
+      const chip = document.createElement('div');
+      chip.className = 'chip';
+      chip.textContent = name;
+      chip.onclick = ()=> selectDeck(name);
+      wrap.appendChild(chip);
+    });
+  }
+
+  function selectDeck(name){
+    activeDeckName = name;
+    document.querySelectorAll('.chip').forEach(c=>{
+      c.classList.toggle('active', c.textContent === (name === 'All' ? 'All decks' : name));
+    });
+    if(name === 'All'){
+      cards = Object.values(decks).flat();
+    } else {
+      cards = decks[name].slice();
+    }
+    idx = 0; flipped = false;
+    document.getElementById('deckName').textContent = name === 'All' ? 'All decks' : name;
+    renderCard();
+  }
+
+  function renderCard(){
+    const total = cards.length;
+    document.getElementById('cardCount').textContent = (idx+1) + ' / ' + total;
+    const cardEl = document.getElementById('flashcard');
+    const textEl = document.getElementById('flashText');
+    const lbl = cardEl.querySelector('.side-lbl');
+    cardEl.classList.toggle('answer', flipped);
+    lbl.textContent = flipped ? 'Answer' : 'Question';
+    textEl.textContent = cards[idx][flipped ? 1 : 0];
+  }
+
+  document.getElementById('flipBtn').onclick = ()=>{ flipped = !flipped; renderCard(); };
+  document.getElementById('flashcard').onclick = ()=>{ flipped = !flipped; renderCard(); };
+  document.getElementById('nextBtn').onclick = ()=>{ idx = (idx+1) % cards.length; flipped = false; renderCard(); };
+  document.getElementById('prevBtn').onclick = ()=>{ idx = (idx-1+cards.length) % cards.length; flipped = false; renderCard(); };
+  document.getElementById('shuffleBtn').onclick = ()=>{
+    for(let i=cards.length-1;i>0;i--){
+      const j = Math.floor(Math.random()*(i+1));
+      [cards[i],cards[j]] = [cards[j],cards[i]];
+    }
+    idx = 0; flipped = false; renderCard();
+  };
+
+  function initDeckUI(){
+    if(document.getElementById('deckSelect').childElementCount === 0){
+      buildDeckList();
+      selectDeck('All');
+    }
+  }
+</script>
+</body>
+</html>
