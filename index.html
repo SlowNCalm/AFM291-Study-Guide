@@ -183,8 +183,9 @@
       <button class="nav-btn" data-page="w5"><span class="dot"></span>Wk 5 · Subsequent Events &amp; Changes</button>
       <button class="nav-btn" data-page="w7"><span class="dot"></span>Wk 7 · Financial Assets — Equity</button>
       <button class="nav-btn" data-page="w8"><span class="dot"></span>Wk 8 · Financial Assets — Debt &amp; Cash Flow</button>
+      <button class="nav-btn" data-page="w10"><span class="dot"></span>Wk 10 · Inv. Property, Revaluation &amp; Gov't Grants</button>
       <button class="nav-btn" data-page="w11"><span class="dot"></span>Wk 11 · Intangibles &amp; Goodwill</button>
-      <button class="nav-btn" data-page="w12"><span class="dot"></span>Wk 12 · Impairment of Long-Term Assets</button>
+      <button class="nav-btn" data-page="w12"><span class="dot"></span>Wk 12 · Impairment, Revaluation &amp; Inv. Property</button>
       <button class="nav-btn" data-page="w13"><span class="dot"></span>Wk 13 · Recap</button>
     </div>
 
@@ -930,6 +931,140 @@ Correction, WITH 30% income tax impact:
       </section>
 
       <!-- ================= WEEK 11 ================= -->
+      <section class="page" id="w10">
+        <div class="eyebrow">Week 10</div>
+        <h1>Investment Property, PP&amp;E Revaluation &amp; Government Grants</h1>
+        <p class="sub">Three worked examples, fast: classifying and measuring investment property (IAS 40), the full mechanics of the PP&amp;E revaluation model including a reversal (IAS 16), and government grants — classification, recognition, and the gross vs. net presentation choice (IAS 20).</p>
+
+        <div class="subhead">1. Investment Property (IAS 40)</div>
+        <div class="card">
+          <div class="callout def"><b>IAS 40 definition</b>"Investment property is property (land or a building — or part of a building — or both) held… to earn rentals or for capital appreciation or both, rather than for: (a) use in the production or supply of goods or services or for administrative purposes; or (b) sale in the ordinary course of business." Property used in the business's own operations is <b>owner-occupied</b> → PP&amp;E (IAS 16) instead.</div>
+          <p><b>Measurement:</b> accounting policy choice — <b>Cost Model</b> or <b>Fair Value Model</b> — applied consistently to <b>all</b> investment property. If Cost Model is chosen, fair value must still be disclosed in the notes.</p>
+          <table>
+            <tr><th>Fair Value Model</th></tr>
+            <tr><td>Remeasure to FV at each B/S date; gains/losses go to <b>Net Income</b> (never OCI); property is <b>NOT depreciated</b>; change-in-use requirements apply if the property's purpose changes.</td></tr>
+          </table>
+          <div class="callout exam"><b>ASPE</b>ASPE has <b>no separate Investment Property classification</b> — such property is simply PP&amp;E, measured using the Cost Model only.</div>
+
+          <h3 style="margin-top:14px;">Worked example — Hinton Property Management Co. (HPMC)</h3>
+          <p>HPMC (public co.) buys a Halifax property Jan 1, 20X1 for $50M ($20M land + $30M building), rents it entirely to a hotel chain (HPMC doesn't operate the hotel itself). Building: 25-yr life, $5M residual. <b>Classification:</b> held purely to earn rental income → <b>Investment Property</b> (not PP&amp;E, since HPMC doesn't use it in its own operations).</p>
+          <div class="je">Jan 1, 20X1 - Initial recognition (at cost):
+  Investment Property - Land           20,000,000
+  Investment Property - Building       30,000,000
+      Cash                                          50,000,000
+
+FAIR VALUE MODEL (appraisals: bldg $31.4M/$32M; land $17.5M/$19.5M):
+20X1: Building +1.4M, Land -2.5M => NET LOSS
+  Holding Loss (NI)                     1,100,000
+      Investment Property - Building                1,400,000
+          [building UP 1.4M is a gain, but land DOWN 2.5M is a
+           loss - shown net here since both flow to NI anyway]
+      Investment Property - Land                     2,500,000
+  (31.4M-30M bldg; 17.5M-20M land)
+
+20X2: both up (bldg 31.4->32M; land 17.5->19.5M)
+  Investment Property - Land            2,000,000
+  Investment Property - Building          600,000
+      Holding Gain (NI)                             2,600,000
+
+COST MODEL (for comparison - same facts, but classified as PP&E):
+20X1 & 20X2 (each year):
+  Depreciation Expense (NI)             1,000,000
+      Accum. Depreciation - Building                1,000,000
+  ((30M - 5M residual) / 25 years)  *Disclose FV in notes*</div>
+        </div>
+
+        <div class="subhead">2. PP&amp;E Revaluation Model (IAS 16)</div>
+        <div class="card">
+          <div class="callout def"><b>IAS 16.39-40</b>Revaluation <b>increase</b> → OCI, accumulated as <b>Revaluation Surplus</b> — <i>unless</i> it reverses a decrease on the same asset previously recognized in P&amp;L (then P&amp;L first). Revaluation <b>decrease</b> → P&amp;L — <i>unless</i> there's an existing Revaluation Surplus credit balance for that asset (then OCI/surplus absorbs it first).</div>
+          <p><b>Elimination vs. Proportional method:</b> Elimination wipes out all accumulated depreciation and resets the cost account to fair value (as if purchased new at that date). Proportional restates both cost and accumulated depreciation so their ratio is preserved. <b>Both land on the same net carrying amount</b> — Elimination is used in the worked example below.</p>
+
+          <h3 style="margin-top:14px;">Worked example — Graham Hotels Inc. (GHI), Toronto Hotel</h3>
+          <p>Building, cost $2,500,000, zero residual, 20-year life, straight-line, Revaluation Model (Elimination Method). Depreciation = $125,000/year ($2,500,000/20).</p>
+          <div class="je">Dec 31, 20X2 (an INCREASE - a "first movement," so all to OCI):
+  Depreciation Expense                    125,000
+      Accum. Deprec. - Toronto Hotel                 125,000
+  (2 years' depreciation now recorded: 125,000 x 2 = 250,000)
+
+  NBV = 2,500,000 - 250,000 = 2,250,000
+  FV  = 2,450,000  =>  Increase = 200,000
+
+  Accum. Deprec. - Toronto Hotel          250,000
+      PP&E - Toronto Hotel Building                   50,000
+      Revaluation Surplus (OCI)                      200,000
+  (Elimination: wipe out all $250,000 A/D; reset cost from
+   2,500,000 down to FV of 2,450,000, i.e. credit cost 50,000;
+   balancing figure of 200,000 is the OCI increase)
+
+Dec 31, 20X3 (a DECREASE - offsets the existing OCI surplus first):
+  Depreciation Expense                    136,111
+      Accum. Deprec. - Toronto Hotel                 136,111
+  (2,450,000 / 18 years remaining - a CHANGE IN ESTIMATE,
+   applied prospectively, using the new revalued amount)
+
+  NBV = 2,450,000 - 136,111 = 2,313,889
+  FV  = 2,200,000  =>  Decrease = 113,889
+
+  Accum. Deprec. - Toronto Hotel          136,111
+  Revaluation Surplus (OCI)               113,889
+      PP&E - Toronto Hotel Building                  250,000
+  (The full $113,889 decrease is absorbed by the existing
+   $200,000 OCI surplus balance - NONE of it hits P&L, because
+   the surplus is large enough to cover it.)</div>
+          <div class="callout exam"><b>Exam angle</b>This is the exact "offset your own asset's surplus bucket first" logic — the 20X3 decrease of $113,889 is fully absorbed by OCI because the surplus balance ($200,000) exceeds it. If the decrease had instead been larger than the existing surplus, only the amount up to the surplus balance would hit OCI, with the excess hitting P&amp;L.</div>
+        </div>
+
+        <div class="subhead">3. Government Grants (IAS 20)</div>
+        <div class="card">
+          <div class="callout def"><b>IAS 20.3 — Government grant</b>"Assistance by government in the form of transfers of resources to an entity in return for past or future compliance with certain conditions relating to the operating activities of the entity." <b>Excluded:</b> income-tax-related benefits (tax holidays, investment tax credits, accelerated CCA, reduced tax rates) — those are NOT government grants under IAS 20.</div>
+          <p><b>Recognition (IAS 20.7):</b> not recognized until there is reasonable assurance that (a) the entity will comply with attached conditions, AND (b) the grant will be received.</p>
+
+          <h3 style="margin-top:14px;">Two categories, two presentation choices each</h3>
+          <table>
+            <tr><th>Category</th><th>Gross Method</th><th>Net Method</th></tr>
+            <tr><td><b>Grants related to income</b> (e.g. a rebate of an expense already incurred)</td><td>Record the grant as <b>Other Income</b>; the related expense stays at its full gross amount</td><td>The grant is <b>netted against</b> (reduces) the related expense directly</td></tr>
+            <tr><td><b>Grants related to assets</b> (e.g. helps fund construction of PP&amp;E)</td><td>Record as <b>Deferred Income</b> (a liability), recognized in income over the asset's useful life as the asset is depreciated</td><td>The grant is <b>netted against</b> (reduces) the cost of the asset directly, lowering future depreciation</td></tr>
+          </table>
+          <p style="font-size:.82rem; color:var(--muted);">IAS 20.12: grants shall be recognized in P&amp;L "on a systematic basis over the periods in which the entity recognises as expenses the related costs for which the grants are intended to compensate" — i.e. match the grant recognition to when the related expense/depreciation hits the income statement.</p>
+
+          <h3 style="margin-top:14px;">Worked example — Glanfield PEM Corp. (GPEM)</h3>
+          <p>GPEM builds a $4M clean-energy research facility (20-yr life, $400,000 residual), available for use Jan 1, 20X2. Three government subsidies, all confirmed to meet the IAS 20 grant definition (operating-activity-related, not income-tax-related) and recognition criteria (conditions met/expected, funds received/expected):</p>
+          <ul class="notes">
+            <li>$20,000 property tax rebate (already incurred/paid expense) → <b>grant related to income</b></li>
+            <li>$200,000 interest-free forgivable loan for construction → <b>grant related to an asset</b></li>
+            <li>4% sales tax rebate on $3,000,000 materials = $120,000 → <b>grant related to an asset</b></li>
+          </ul>
+          <div class="je">PROPERTY TAX REBATE (income-related), 20X1:
+  Gross Method:              Net Method:
+  Cash          20,000       Cash          20,000
+    Other Income   20,000      Property Tax Exp 20,000
+
+FORGIVABLE LOAN + SALES TAX REBATE (asset-related):
+  Jan 1/received:
+  Gross Method:                    Net Method:
+  Cash           200,000           Cash           200,000
+    Deferred Income  200,000         PP&E Research Facility 200,000
+  Cash           120,000           Cash           120,000
+    Deferred Income  120,000         PP&E Research Facility 120,000
+  (120,000 = 3,000,000 x 4%)
+
+  20X2 year-end (facility now in use, depreciating):
+  Gross Method:
+    Deferred Income          16,000
+        Other Income (Gov't Grant)         16,000
+    ((200,000+120,000)/20 years)
+    Depreciation Expense    180,000
+        Accum. Deprec. - Facility           180,000
+    ((4,000,000 - 400,000)/20)
+
+  Net Method:
+    Depreciation Expense    164,000
+        Accum. Deprec. - Facility           164,000
+    ((4,000,000 - 320,000 grant - 400,000 residual)/20)</div>
+          <div class="callout exam"><b>Exam angle</b>Under both methods, net income is identical in total — the Gross Method just shows a bigger depreciation expense offset by separate "Other Income," while the Net Method shows a smaller depreciation expense directly (grant already netted into the asset's cost). This is the same "presentation differs, economics don't" theme that runs through the whole course (see Week 13's cash flow statement discussion).</div>
+        </div>
+      </section>
+
       <section class="page" id="w11">
         <div class="eyebrow">Week 11</div>
         <h1>Intangible Assets &amp; Goodwill</h1>
@@ -999,8 +1134,8 @@ Correction, WITH 30% income tax impact:
       <!-- ================= WEEK 12 ================= -->
       <section class="page" id="w12">
         <div class="eyebrow">Week 12</div>
-        <h1>Impairment of Long-Term Assets</h1>
-        <p class="sub">The full process for solving an impairment case: when to test, what to test (a single asset or a group), how IFRS measures impairment in one step where ASPE uses two, and how — and whether — a loss can be reversed.</p>
+        <h1>Impairment, Revaluation &amp; Investment Property</h1>
+        <p class="sub">The full process for solving an impairment case; how IFRS measures impairment in one step where ASPE uses two; plus the two other "subsequent measurement" models flagged on the course's asset map — the PP&amp;E revaluation model and investment property's fair value model.</p>
 
         <div class="subhead">Preliminary step — annual test, or only if indicators?</div>
         <div class="card">
@@ -1061,6 +1196,91 @@ Correction, WITH 30% income tax impact:
         <div class="subhead">Real-world illustration — Stora Enso</div>
         <div class="card">
           <p>The lecture walks a real impairment disclosure from Stora Enso (a global paper/packaging/wood products company) to show how the process, indicators, CGU identification, and resulting loss are actually presented in annual report notes — useful for seeing what a "complete" impairment disclosure looks like in practice, beyond the mechanics of the calculation itself.</p>
+        </div>
+
+        <div class="divider"></div>
+
+        <div class="subhead">PP&amp;E — Cost Model vs. Revaluation Model (IAS 16)</div>
+        <div class="card">
+          <p>The course's own "potential financial reporting issues" map lists <b>"Cost Model vs. Revaluation Model (IFRS)"</b> as a recurring subsequent-measurement issue alongside impairment — after initial recognition, IAS 16 lets an entity choose <b>one</b> of two models, applied to an <b>entire class</b> of PP&amp;E (e.g. all land, or all buildings — not asset-by-asset):</p>
+          <table>
+            <tr><th>Model</th><th>Subsequent measurement</th></tr>
+            <tr><td><b>Cost Model</b></td><td>Cost less accumulated depreciation less accumulated impairment losses (the default/simplest model — the only one ASPE allows)</td></tr>
+            <tr><td><b>Revaluation Model</b></td><td>Fair value at the date of revaluation, less any subsequent accumulated depreciation and impairment losses — <i>provided</i> fair value can be measured reliably. Must be revalued regularly enough that the carrying amount doesn't differ materially from fair value at each reporting date.</td></tr>
+          </table>
+
+          <h3 style="margin-top:14px;">Where do revaluation gains and losses go?</h3>
+          <table>
+            <tr><th>Movement</th><th>Treatment</th></tr>
+            <tr><td><b>Revaluation increase</b></td><td>Recognized in <b>OCI</b>, accumulated in equity as a <b>Revaluation Surplus</b> — <i>unless</i> it reverses a revaluation decrease of the <i>same asset</i> previously recognized in profit or loss, in which case the increase is recognized in P&amp;L (income) up to the amount of that earlier decrease, with any excess to OCI.</td></tr>
+            <tr><td><b>Revaluation decrease</b></td><td>Recognized in <b>profit or loss</b> — <i>unless</i> there's an existing credit balance in that asset's Revaluation Surplus, in which case the decrease is debited against the surplus (through OCI) first, with any excess recognized in P&amp;L.</td></tr>
+          </table>
+          <div class="callout exam"><b>Exam angle — the "first movement sets the rule" logic</b>Think of each asset's Revaluation Surplus account as a bucket that absorbs good news and bad news symmetrically, in the order they actually occur: the <i>first</i> revaluation movement on a given asset follows the default rule (increase → OCI, decrease → P&amp;L); every movement <i>after</i> that first one first tries to reverse/offset whatever is already sitting in that asset's own surplus account before spilling over to P&amp;L or OCI.</div>
+
+          <h3 style="margin-top:14px;">Worked example</h3>
+          <p>Equipment: original cost $500,000, accumulated depreciation to date $200,000, carrying amount $300,000. An independent appraisal values the equipment at $380,000.</p>
+          <div class="je">Revaluation increase = 380,000 - 300,000 = $80,000
+(assume no prior revaluation history for this asset - first movement)
+
+Using the "elimination" method (eliminate old accumulated
+depreciation against cost, then restate net amount to FV):
+  Accumulated Depreciation - Equipment    200,000
+      Equipment (cost)                              200,000
+  (eliminates the $200,000 A/D against the $500,000 gross cost,
+   leaving Equipment at its $300,000 carrying amount)
+
+  Equipment                                80,000
+      Revaluation Surplus (OCI)                      80,000
+  (restates the $300,000 carrying amount up to the $380,000 fair value)
+
+Result: Equipment carried at $380,000; Revaluation Surplus of
+$80,000 sits in equity (OCI), NOT in net income.
+Depreciation going forward is based on the new $380,000 amount.</div>
+          <p style="font-size:.82rem; color:var(--muted);">An alternative "proportional" method restates both the gross cost and accumulated depreciation proportionately so the ratio between them is preserved while the net carrying amount still lands at fair value — either method is acceptable under IAS 16 as long as the resulting net carrying amount equals fair value.</p>
+
+          <div class="callout def"><b>ASPE</b>ASPE does <b>not permit the revaluation model at all</b> — PP&amp;E under ASPE is always measured using the cost model (cost less accumulated depreciation less impairment), full stop. If a case states the entity applies ASPE, "Cost Model vs. Revaluation Model" is not even a live issue — go straight to the cost model.</p></div>
+        </div>
+
+        <div class="subhead">Investment Property (IAS 40)</div>
+        <div class="card">
+          <div class="callout def"><b>Investment property (IAS 40)</b>Land or a building (or part of a building) held to earn <b>rental income</b> and/or for <b>capital appreciation</b> — rather than for use in producing/supplying goods or services or for administrative purposes (that's owner-occupied PP&amp;E, IAS 16), and rather than for sale in the ordinary course of business (that's inventory, IAS 2).</div>
+          <p>The classification question itself is often the financial reporting issue: the same physical building can be PP&amp;E, inventory, <i>or</i> investment property depending entirely on <b>how and why the entity holds it</b> — always tie your classification conclusion to specific case facts about the property's intended use.</p>
+
+          <h3 style="margin-top:14px;">Two measurement models — an accounting policy choice</h3>
+          <table>
+            <tr><th>Model</th><th>Subsequent measurement</th></tr>
+            <tr><td><b>Cost Model</b></td><td>Same as PP&amp;E's cost model — cost less accumulated depreciation less impairment. Fair value must still be <b>disclosed</b> in the notes even if not used for measurement.</td></tr>
+            <tr><td><b>Fair Value Model</b></td><td>Remeasured to fair value at <b>every reporting date</b>. All gains and losses from changes in fair value go directly to <b>profit or loss</b> (never OCI). The property is <b>not depreciated</b> under this model — the fair value movement itself captures any change in value.</td></tr>
+          </table>
+          <p>Unlike PP&amp;E's revaluation model (applied class-by-class), the investment property measurement model, once chosen, is normally applied consistently to <b>all</b> of an entity's investment property.</p>
+
+          <div class="callout exam"><b>Exam angle — the 3-way comparison examiners love</b>
+            <table style="margin-top:6px;">
+              <tr><th></th><th>PP&amp;E Revaluation Model</th><th>Investment Property Fair Value Model</th></tr>
+              <tr><td>Where do gains/losses go?</td><td>OCI (Revaluation Surplus) — unless reversing a prior P&amp;L movement on the same asset</td><td><b>Always</b> profit or loss — gains and losses are treated identically</td></tr>
+              <tr><td>Still depreciated?</td><td>Yes — depreciated based on the revalued amount</td><td><b>No</b> — never depreciated under this model</td></tr>
+              <tr><td>Scope of the election</td><td>By class of asset</td><td>All investment property, entity-wide</td></tr>
+              <tr><td>ASPE equivalent</td><td>Not permitted</td><td>Not a separate standard — property is PP&amp;E under ASPE, cost model only</td></tr>
+            </table>
+          </div>
+
+          <h3 style="margin-top:14px;">Worked example</h3>
+          <p>XYZ Corp. owns an office building held solely to earn rental income from unrelated tenants (investment property). Original cost: $2,000,000. XYZ applies the fair value model.</p>
+          <div class="je">Dec 31, 2024: independent appraisal values the building at $2,150,000
+  Investment Property                     150,000
+      Gain on Investment Property (P&L)              150,000
+  (No depreciation is recorded - the property is carried
+   at fair value, not a depreciated cost base.)
+
+Dec 31, 2025: market softens; appraised value falls to $2,080,000
+  Loss on Investment Property (P&L)        70,000
+      Investment Property                            70,000
+  (Note: unlike the PP&E revaluation model, this loss goes
+   straight to P&L - there is no OCI "cushion" to absorb it first,
+   because gains and losses under the fair value model are
+   always treated the same way.)</div>
+
+          <div class="callout case"><b>Transfers between classifications</b>If a property's use changes — e.g. an owner-occupied head office is vacated and leased out to third parties, or a rental building is repurposed for the entity's own operations — the property is reclassified between PP&amp;E and investment property at that date, and IAS 40 sets out specific rules for measuring the property at the transfer date (generally at fair value, with the treatment of any resulting gain/loss depending on the direction of the transfer and which measurement model was in use). This is flagged here for awareness; work through the specific direction of transfer using case facts if it comes up.</div>
         </div>
       </section>
 
@@ -1323,6 +1543,18 @@ To close out the completed contract:
             <tr><td>Impairment test</td><td><b>One-step:</b> carrying amount vs. recoverable amount (higher of FV less costs to sell, and value in use)</td><td><b>Two-step:</b> (1) recoverability test using <i>undiscounted</i> cash flows, (2) if failed, measure loss as carrying amount less fair value</td></tr>
             <tr><td>Impairment reversal</td><td>Permitted (except goodwill)</td><td><b>Never permitted</b>, including for goodwill</td></tr>
             <tr><td>Goodwill</td><td>Only recognized in a business combination; never amortized; tested annually; impairment never reversed</td><td>Same core principles</td></tr>
+          </table>
+        </div>
+
+        <div class="subhead">PP&amp;E Revaluation &amp; Investment Property</div>
+        <div class="card">
+          <table>
+            <tr><th>Topic</th><th>IFRS</th><th>ASPE</th></tr>
+            <tr><td>PP&amp;E subsequent measurement</td><td>Choice of Cost Model or Revaluation Model (IAS 16), elected by class of asset</td><td><b>Cost Model only</b> — revaluation is not permitted</td></tr>
+            <tr><td>PP&amp;E revaluation gains</td><td>OCI (Revaluation Surplus), unless reversing a prior P&amp;L decrease on the same asset</td><td>N/A</td></tr>
+            <tr><td>PP&amp;E revaluation losses</td><td>P&amp;L, unless offsetting an existing surplus on the same asset (OCI first)</td><td>N/A</td></tr>
+            <tr><td>Investment property</td><td>Separate standard (IAS 40); choice of Cost Model or Fair Value Model, applied entity-wide</td><td><b>No separate standard</b> — such property is PP&amp;E, cost model only</td></tr>
+            <tr><td>Investment property fair value gains/losses</td><td>Always profit or loss (never OCI); property is <b>not depreciated</b> under this model</td><td>N/A</td></tr>
           </table>
         </div>
 
@@ -1634,6 +1866,21 @@ To close out the completed contract:
       ["What IFRS 9 concept triggers a move from 12-month to lifetime expected credit losses?", "A significant increase in credit risk since initial recognition."],
       ["What's IFRS 18's core change to Cash Flow Statement presentation of interest/dividends?", "It removes the pre-IFRS 18 policy choice (Operating vs. Investing/Financing) and standardizes placement, tied to new defined P&L categories."]
     ],
+    "Week 10": [
+      ["Define investment property (IAS 40).", "Property held to earn rentals or for capital appreciation (or both) - NOT for use in own operations (PP&E) or sale in the ordinary course of business (inventory)."],
+      ["What are the two measurement models for investment property, and how are gains/losses treated under the Fair Value Model?", "Cost Model or Fair Value Model. Under Fair Value Model: all gains/losses go to Net Income (never OCI), and the property is NOT depreciated."],
+      ["Does ASPE have an Investment Property classification?", "No - under ASPE such property is simply PP&E, Cost Model only."],
+      ["Under IAS 16, where does a revaluation INCREASE go, and what's the exception?", "OCI (Revaluation Surplus) - unless it reverses a prior decrease on the SAME asset that went through P&L, in which case that portion goes to P&L first."],
+      ["Under IAS 16, where does a revaluation DECREASE go, and what's the exception?", "P&L - unless there's an existing Revaluation Surplus credit balance for that asset, in which case the decrease is absorbed by OCI first, up to the surplus balance."],
+      ["In the Toronto Hotel example, why did the entire 20X3 decrease of $113,889 hit OCI instead of P&L?", "Because the existing Revaluation Surplus balance from 20X2 ($200,000) was large enough to fully absorb the $113,889 decrease."],
+      ["What's the difference between the Elimination and Proportional methods of recording a revaluation?", "Elimination wipes out all accumulated depreciation and resets cost to fair value (as if purchased new). Proportional restates both cost and accumulated depreciation keeping their ratio constant. Both produce the same net carrying amount."],
+      ["Define a government grant (IAS 20.3).", "Assistance by government in the form of transfers of resources to an entity in return for past or future compliance with conditions relating to the entity's operating activities."],
+      ["What government benefits are explicitly EXCLUDED from being a 'government grant' under IAS 20?", "Income-tax-related benefits - tax holidays, investment tax credits, accelerated depreciation/CCA allowances, reduced income tax rates."],
+      ["What two conditions must be met before a government grant can be recognized (IAS 20.7)?", "(a) reasonable assurance the entity will comply with attached conditions, AND (b) reasonable assurance the grant will be received."],
+      ["Describe the Gross vs. Net method for a grant related to INCOME (e.g. an expense rebate).", "Gross: record the grant as Other Income, expense stays at full gross amount. Net: the grant is netted directly against (reduces) the related expense."],
+      ["Describe the Gross vs. Net method for a grant related to an ASSET.", "Gross: record as Deferred Income (a liability), recognized into income over the asset's useful life. Net: the grant reduces the cost of the asset directly, lowering future depreciation."],
+      ["Does the choice between Gross and Net method change total net income?", "No - total net income is identical either way; only presentation differs (bigger expense + separate income line, vs. smaller net expense directly)."]
+    ],
     "Week 11": [
       ["List the six IAS 38 criteria for capitalizing development-phase costs (all must be met).", "Technical feasibility; intention to complete and use/sell; ability to use/sell; how it will generate probable future economic benefits; availability of adequate resources; ability to reliably measure the expenditure."],
       ["How are research-phase costs treated, under both IFRS and ASPE?", "Always expensed as incurred — too uncertain to capitalize."],
@@ -1650,7 +1897,16 @@ To close out the completed contract:
       ["Describe IFRS's one-step impairment test.", "Compare carrying amount to recoverable amount = the HIGHER of (a) fair value less costs to sell, and (b) value in use (PV of future cash flows). If carrying amount exceeds recoverable amount, the difference is the impairment loss."],
       ["Describe ASPE's two-step impairment test.", "Step 1 (recoverability): compare carrying amount to UNDISCOUNTED future cash flows — if carrying amount is less, stop, no impairment. Step 2 (measurement, only if Step 1 fails): loss = carrying amount less fair value."],
       ["How is an impairment loss allocated across a CGU containing goodwill and other assets?", "First fully write off any goodwill in the CGU, then allocate any remaining loss pro-rata across the other assets based on relative carrying amounts."],
-      ["Compare impairment reversal rules: IFRS vs. ASPE.", "IFRS permits reversal for assets other than goodwill (up to the carrying amount that would have existed with no prior impairment). ASPE never permits reversal for any long-lived asset, including goodwill."]
+      ["Compare impairment reversal rules: IFRS vs. ASPE.", "IFRS permits reversal for assets other than goodwill (up to the carrying amount that would have existed with no prior impairment). ASPE never permits reversal for any long-lived asset, including goodwill."],
+      ["What are the two subsequent measurement models for PP&E under IAS 16?", "Cost Model (cost less accumulated depreciation less impairment) or Revaluation Model (fair value less subsequent depreciation and impairment), elected by class of asset."],
+      ["Where does a PP&E revaluation INCREASE normally get recognized?", "OCI, accumulated in equity as a Revaluation Surplus — unless it reverses a prior revaluation decrease of the same asset that went through P&L, in which case it goes to P&L up to that amount first."],
+      ["Where does a PP&E revaluation DECREASE normally get recognized?", "Profit or loss — unless there's an existing Revaluation Surplus credit balance for that asset, in which case the decrease is debited against the surplus (OCI) first."],
+      ["Does ASPE permit the revaluation model for PP&E?", "No — ASPE only permits the cost model for PP&E."],
+      ["Define investment property under IAS 40.", "Land or a building held to earn rental income and/or for capital appreciation, rather than for use in the business's own operations (PP&E) or for sale in the ordinary course of business (inventory)."],
+      ["What are the two measurement models for investment property, and how are gains/losses treated under each?", "Cost Model (same as PP&E cost model, fair value disclosed in notes) or Fair Value Model (remeasured every reporting date, all gains/losses to PROFIT OR LOSS, never OCI)."],
+      ["Is investment property depreciated under the fair value model?", "No — never depreciated under the fair value model, since the fair value remeasurement itself captures any change in value."],
+      ["How does ASPE treat property held to earn rental income/appreciation?", "ASPE has no separate investment property standard — such property is simply PP&E, measured using the cost model only."],
+      ["Key exam contrast: PP&E revaluation gains/losses vs. investment property fair value gains/losses — where do they go?", "PP&E revaluation: gains to OCI, losses to P&L (asymmetric, with an offset rule). Investment property fair value model: BOTH gains and losses always go to P&L (symmetric treatment)."]
     ],
     "Week 13": [
       ["In the Kennedy Construction Ltd. example, why is there only one performance obligation for a $40M warehouse build?", "The many goods/services (design, engineering, materials, labour, foundation, construction) are highly interdependent and integrated into one overall deliverable — not distinct within the context of the contract, same reasoning as the hospital-contract example."],
